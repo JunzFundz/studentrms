@@ -20,33 +20,8 @@ if (strlen($_SESSION['aid'] == 0)) {
 		}
 	}
 ?>
-	<!DOCTYPE html>
-	<html lang="en">
+	<?php include('header.php') ?>
 
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>add cadets</title>
-		<!-- Bootstrap Core CSS -->
-		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<!-- MetisMenu CSS -->
-		<link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-		<!-- Custom CSS -->
-		<link href="dist/css/sb-admin-2.css" rel="stylesheet">
-		<!-- Custom Fonts -->
-		<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-		<!-- new added libraries -->
-		<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
-
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-		<link rel="stylesheet" href="style.css">
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-		<!-- end of new added -->
-
-	</head>
 	<script type="text/javascript">
 		function checkpass() {
 			if (document.changepassword.newpassword.value != document.changepassword.confirmpassword.value) {
@@ -58,99 +33,80 @@ if (strlen($_SESSION['aid'] == 0)) {
 		}
 	</script>
 
-	<body>
 
-		<div class="container-div">
+	<div class="container-div">
 
-			<div class="navigation">
-				<h4 id="title">Student Records</h4>
-			</div>
-
-			<div class="side-panel">
-				<?php include('leftbar.php') ?>
-			</div>
-
-			<div class="right-panel">
-				<form method="post">
-					<!-- /.row -->
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="panel panel-default">
-								<div class="panel-heading">Admin Change Password</div>
-								<div class="panel-body">
-									<div class="row">
-										<div class="col-lg-10">
-											<form class="form-validate form-horizontal" method="post" action="" name="changepassword" onsubmit="return checkpass();">
-												<div class="form-group">
-													<div class="col-lg-4">
-														<label>Current Password<span id="" style="font-size:11px;color:red">*</span> </label>
-													</div>
-													<div class="col-lg-6">
-
-														<input type="password" name="currentpassword" class=" form-control" required="true" value="">
-													</div>
-
-												</div>
-
-												<br><br>
-
-												<div class="form-group">
-													<div class="col-lg-4">
-														<label>New Password<span id="" style="font-size:11px;color:red">*</span></label>
-													</div>
-													<div class="col-lg-6">
-														<input type="password" name="newpassword" id="newpassword" class="form-control" value="" required>
-													</div>
-												</div>
-
-												<br><br>
-
-												<div class="form-group">
-													<div class="col-lg-4">
-														<label>Confirm Password</label>
-													</div>
-													<div class="col-lg-6">
-														<input type="password" name="confirmpassword" id="confirmpassword" class="form-control" value="" required>
-
-													</div>
-												</div>
-										</div>
-
-										<br><br>
-
-										<div class="form-group">
-											<div class="col-lg-4">
-
-											</div>
-											<div class="col-lg-6"><br><br>
-												<input type="submit" class="btn btn-primary" name="submit" value="Change"></button>
-											</div>
-
-										</div>
-
-									</div>
-				</form>
-			</div>
+		<div class="navigation">
+			<?php include('admin-header.php') ?>
 		</div>
 
-		<?php 
-            include('add-platoon.php');
-            include('add-officer.php');
-            ?>
+		<div class="side-panel">
+			<?php include('leftbar.php') ?>
+		</div>
 
-		<script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
+		<div class="right-panel">
+			<form method="post">
+				<!-- /.row -->
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">Admin Change Password</div>
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-lg-10">
+										<form class="form-validate form-horizontal" method="post" action="" name="changepassword" onsubmit="return checkpass();">
+											<div class="form-group">
+												<div class="col-lg-4">
+													<label>Current Password<span id="" style="font-size:11px;color:red">*</span> </label>
+												</div>
+												<div class="col-lg-6">
 
+													<input type="password" name="currentpassword" class=" form-control" required="true" value="">
+												</div>
 
-		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+											</div>
 
-		<!-- Metis Menu Plugin JavaScript -->
-		<script src="bower_components/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
+											<br><br>
 
-		<!-- Custom Theme JavaScript -->
-		<script src="dist/js/sb-admin-2.js" type="text/javascript"></script>
-		<script src="admin.js"></script>
-		</form>
-	</body>
+											<div class="form-group">
+												<div class="col-lg-4">
+													<label>New Password<span id="" style="font-size:11px;color:red">*</span></label>
+												</div>
+												<div class="col-lg-6">
+													<input type="password" name="newpassword" id="newpassword" class="form-control" value="" required>
+												</div>
+											</div>
 
-	</html>
+											<br><br>
+
+											<div class="form-group">
+												<div class="col-lg-4">
+													<label>Confirm Password</label>
+												</div>
+												<div class="col-lg-6">
+													<input type="password" name="confirmpassword" id="confirmpassword" class="form-control" value="" required>
+
+												</div>
+											</div>
+									</div>
+									<br><br>
+									<div class="form-group">
+										<div class="col-lg-4">
+
+										</div>
+										<div class="col-lg-6"><br><br>
+											<input type="submit" class="btn btn-primary" name="submit" value="Change"></button>
+										</div>
+									</div>
+								</div>
+			</form>
+		</div>
+		
+	</div>
+
+	<?php
+	include('add-platoon.php');
+	include('add-officer.php');
+	include('footer.php');
+	?>
 <?php } ?>

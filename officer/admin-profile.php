@@ -20,30 +20,8 @@ if (strlen($_SESSION['aid'] == 0)) {
 	}
 
 ?>
-	<!DOCTYPE html>
-	<html lang="en">
 
-	<head>
-
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Edit Profile</title>
-		<!-- MetisMenu CSS -->
-		<link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-		<!-- Custom CSS -->
-		<link href="../dist/css/sb-admin-2.css" rel="stylesheet">
-		<!-- Custom Fonts -->
-		<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-		<!-- new added libraries -->
-		<link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-		<link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-		<link rel="stylesheet" href="style.css">
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="../node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
-		<!-- end of new added -->
+<?php include('header.php') ?>
 
 	</head>
 
@@ -54,7 +32,7 @@ if (strlen($_SESSION['aid'] == 0)) {
 				<div class="container-div">
 
 					<div class="navigation">
-						<h4 id="title">Student Records</h4>
+					<?php include('admin-header.php') ?>
 					</div>
 
 					<div class="side-panel">
@@ -128,14 +106,11 @@ if (strlen($_SESSION['aid'] == 0)) {
 				</div>
 			</div>
 
-			<?php include('add-platoon.php') ?>
-
-
-			<!-- Metis Menu Plugin JavaScript -->
-			<script src="bower_components/metisMenu/dist/metisMenu.min.js" type="text/javascript"></script>
-			<!-- Custom Theme JavaScript -->
-			<script src="dist/js/sb-admin-2.js" type="text/javascript"></script>
-			<script src="admin.js"></script>
+            <?php 
+            include('add-platoon.php');
+            include('add-officer.php');
+            include('footer.php');
+            ?>
 
 
 		</form>

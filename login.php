@@ -16,6 +16,7 @@ if (isset($_POST['submit'])) {
         $_SESSION['login'] = $row['loginid'];
 
         if ($row['ID'] === 1) {
+            $_SESSION['login'] = $row['loginid'];
             header('Location: admin/dashboard.php');
         } else {
             header('Location: officer/dashboard.php');
@@ -55,8 +56,12 @@ if (isset($_POST['submit'])) {
         }
 
         body {
-            background: #e35869;
+            background-color: #837960;
+            background-image: linear-gradient(to bottom, transparent, #837960), url("bg.jpg");
+            opacity: 0.9;
+            background-repeat: no-repeat;
             font-family: 'Rubik', sans-serif;
+            height: 100vh;
         }
 
         .login-form {
@@ -174,10 +179,10 @@ if (isset($_POST['submit'])) {
     </style>
 </head>
 
-<body>
+<body class="bg-page">
     <br>
     <h1 align="center" style="color: #fff;">CADETS RECORD MANAGEMENT SYSTEM IN NORSU ROTC BAIS UNIT</h1>
-    <div class="container">
+    <div class="">
         <br><br><br><br>
 
         <!-- partial:index.partial.html -->
@@ -194,8 +199,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
                 <div class="action">
-                    <button>Forgot Your Password?</button>
-                    <button type="submit" name="submit" >Sign in</button>
+                    <button type="submit" name="submit">Sign in</button>
                 </div>
             </form>
         </div>
