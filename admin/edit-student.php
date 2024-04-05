@@ -2,16 +2,18 @@
 //error_reporting(0);
 include('../includes/dbconnection.php');
 if (strlen($_SESSION['aid'] == 0)) {
-	header('location:logout.php');
+	header('location: ../logout.php');
 } else {
 
-	if (isset($_GET['stud_id'])) {
-		$stud_id = $_GET['stud_id'];
+	if (isset($_GET['id'])) {
+		$id = $_GET['id'];
 
-		$stmt = "SELECT * FROM registration WHERE stud_id=" . $stud_id;
+		$stmt = "SELECT * FROM student_info WHERE id=" . $id;
 		$result = mysqli_query($con, $stmt);
 	}
 ?>
+<title>Edit Student</title>
+
 	<?php include('header.php') ?>
 
 	<script type="text/javascript">
@@ -29,14 +31,12 @@ if (strlen($_SESSION['aid'] == 0)) {
 
 		}
 	</script>
-
 	</head>
 
 	<body>
 
 		<form method="post" action="db_update.php">
-			<input type="text" name="stud_id" value="<?php echo @$_GET["stud_id"]; ?>" hidden />
-
+			<input type="text" name="id" value="<?php echo @$_GET["id"]; ?>" hidden />
 			<div class="container-div">
 
 				<div class="navigation">
@@ -48,111 +48,208 @@ if (strlen($_SESSION['aid'] == 0)) {
 				</div>
 
 				<div class="right-panel">
+					<?php foreach($result as $row){ ?>
 
-
-					<div class="row justify-content-start">
-						<?php foreach ($result as $row) { ?>
-							<div class="col-3">
-								<label>Select Platoon<span id="" style="font-size:11px;color:red">*</span></label>
-								<select class="form-control" name="platoon" required="required">
-									<?php $stmt = "SELECT * FROM platoons_tb";
+					<div class="container text-left" style="padding: 0;">
+						<div class="row g-3">
+							<div class="col-sm-4">
+								<label>Select company<span id="" style="font-size:11px;color:red">*</span></label>
+								<select class="form-select" name="comp" required="required">
+									<?php $stmt = "SELECT * FROM comp_tb";
 									$result = mysqli_query($con, $stmt);
 									foreach ($result as $rows) { ?>
-
-										<option><?php echo strtoupper($rows['platoons']) ?></option>
-
+										<option><?php echo strtoupper($rows['comp']) ?></option>
 									<?php }
 									?>
 								</select>
 							</div>
-							<div class="col-3">
-								<label>Current Session<span id="" style="font-size:11px;color:red">*</span></label>
 
+							<div class="col-sm-3">
+								<label>Current Session<span id="" style="font-size:11px;color:red">*</span></label>
 								<?php $query = mysqli_query($con, "SELECT * FROM `session` WHERE status=1 ");
 								while ($res = mysqli_fetch_array($query)) { ?>
-									<input type="hidden" name="sessionid" value="<?php echo htmlentities($res['id']); ?>" readonly>
+									<input type="hidden" name="sessionid" value="<?php echo htmlentities($res['sid']); ?>" readonly>
 									<input class="form-control" name="session" value="<?php echo htmlentities($res['session']); ?>" readonly>
 								<?php } ?>
-
 							</div>
-					</div>
-					<br><br>
-					<h5 id="title-heading">Personal Informations</h5>
-					<br>
-					<div class="row justify-content-start">
-						<div class="col-2">
-							<label>First Name<span id="" style="font-size:11px;color:red">*</span> </label>
-							<input class="form-control" name="fname" required="required" pattern="[A-Za-z]+$" value="<?php echo $row['fname'] ?>">
-							<br>
-							<label>Guardian Name<span id="" style="font-size:11px;color:red">*</span> </label>
-							<input class="form-control" name="gname" required="required" value="<?php echo $row['gname'] ?>">
-						</div>
-
-						<div class="col-2">
-							<label>Middle Name</label>
-							<input class="form-control" name="mname" value="<?php echo $row['mname'] ?>">
-							<br>
-							<label>Occupation</label>
-							<input class="form-control" name="ocp" id="ocp" value="<?php echo $row['ocp'] ?>">
-						</div>
-
-						<div class="col-2">
-							<label>Last Name</label>
-							<input class="form-control" name="lname" pattern="[A-Za-z]+$" value="<?php echo $row['lname'] ?>">
-							<br>
-							<label>Nationality<span id="" style="font-size:11px;color:red">*</span></label>
-							<input class="form-control" name="nation" id="nation" value="<?php echo $row['nationality'] ?>">
-						</div>
-
-						<div class="col-2">
-							<label>Gender</label>
-							<select class="form-select" aria-label="Default select example" name="gender" value="">
-								<option selected>Select Gender</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-								<option value="other">other</option>
-							</select>
 						</div>
 					</div>
 
-					<br><br>
-					<h5 id="title-heading">Contact Informations</h5>
-					<br>
-					<div class="row justify-content-start">
-						<div class="col-3">
-							<label>Mobile Number<span id="" style="font-size:11px;color:red">*</span> </label>
-							<input class="form-control" type="number" name="mobno" required="required" maxlength="10" value="<?php echo $row['mobno'] ?>">
-							<br>
-							<label>Province</label>
-							<input class="form-control" name="pro" pattern="[A-Za-z]+$" value="<?php echo $row['pro'] ?>">
-							<br>
-							<label>Permanent Address<span id="" style="font-size:11px;color:red">*</span></label>
-							<textarea class="form-control" rows="3" name="padd" id="padd"><?php echo $row['padd'] ?></textarea>
-						</div>
-						<div class="col-3">
-							<label>Email</label>
-							<input class="form-control" type="email" name="email" value="<?php echo $row['emailid'] ?>">
-							<br>
-							<label>City</label>
-							<input class="form-control" name="city" pattern="[A-Za-z]+$" value="<?php echo $row['city'] ?>">
-							<br>
-							<label>Correspondence Address<span id="" style="font-size:11px;color:red">*</span></label>
-							<textarea class="form-control" rows="3" name="cadd" id="cadd"><?php echo $row['cadd'] ?></textarea>
+					<div class="container text-left" style="padding: 0;">
+						<div class="row g-3">
+							<div class="col-sm-4">
+								<label>Course<span id="" style="font-size:11px;color:red">*</span> </label>
+								<select class="form-select" name="course" required="required">
+									<?php $stmt = "SELECT * FROM course";
+									$result = mysqli_query($con, $stmt);
+									foreach ($result as $rows) { ?>
+										<option><?php echo $rows['c_name'] ?></option>
+									<?php }
+									?>
+								</select>
+							</div>
+
+							<div class="col-sm-3">
+								<label>Major</label><span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['major'] ?>" name="major">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Semester<span id="" style="font-size:11px;color:red">*</span> </label>
+								<select class="form-select" name="semester" required="required">
+									<?php $stmt = "SELECT * FROM semester";
+									$result = mysqli_query($con, $stmt);
+									foreach ($result as $rows) { ?>
+										<option><?php echo $rows['sem'] ?></option>
+									<?php }
+									?>
+								</select>
+							</div>
 						</div>
 					</div>
-					<br>
-					<input type="submit" class="btn btn-primary submit-btn" name="submit" value="Register"></button>
-					<br><br><br><br>
 
-				<?php } ?>
+					<br>
+					<br>
+					<h5 id="title-heading">PERSONAL INFORMATION</h5>
+					<div style="height: 2px; width:100%; background-color:grey; margin-block:30px"></div>
+
+					<div class="container text-left" style="padding: 0;">
+						<div class="row g-3">
+							<div class="col-sm-3">
+								<label>First Name<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control"  value = "<?php echo $row['fname'] ?>" name="fname" required="required">
+							</div>
+
+							<div class="col-sm-3">
+								<label>(MI)</label><span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control"  value = "<?php echo $row['mi'] ?>" name="mi">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Last Name<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control"  value = "<?php echo $row['lname'] ?>" name="lname">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Gender</label>
+								<select class="form-select" aria-label="Default select example" name="gender">
+									<option selected>Select Gender</option>
+									<option value="Male">Male</option>
+									<option value="Female">Female</option>
+									<option value="other">other</option>
+								</select>
+							</div>
+
+							<div class="col-sm-6">
+								<label>Place of birth<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control"  value = "<?php echo $row['pbirth'] ?>" name="pbirth" required="required">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Date of Birth</label><span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control"  value = "<?php echo $row['dob'] ?>" name="dob" type="date">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Blood type<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['btype'] ?>" name="btype">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Religion<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['religion'] ?>" name="religion" required="required">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Region</label><span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['region'] ?>" name="region">
+							</div>
+
+							<div class="col-sm-3">
+								<label>Civil Status<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['civil'] ?>" name="civil">
+							</div>
+
+							<div class="col-sm-3">
+							<label>Phone<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['phone'] ?>" name="phone">
+							</div>
+
+							<div class="col-sm-6">
+							<label>Permanet Address<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['address'] ?>" name="address">
+							</div>
+
+							<div class="col-sm-3">
+							<label>Father's Name<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['father'] ?>" name="father">
+							</div>
+
+							<div class="col-sm-3">
+							<label>Occupation<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['f_occupation'] ?>" name="f_occupation">
+							</div>
+
+							<div class="col-sm-3">
+							<label>Mother's Name<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['mother'] ?>" name="mother">
+							</div>
+
+							<div class="col-sm-3">
+							<label>Occupation<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['m_occupation'] ?>" name="m_occupation">
+							</div>
+							
+							<div class="col-sm-3">
+							<label>ROTC Grade (1st Semester)<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['rotc_grade'] ?>" name="rotc_grade">
+							</div>
+
+						</div>
+					</div>
+
+					<br>
+					<br>
+					<h5 id="title-heading">PERSON TO BE NOTIFIED IN CASE OF EMERGENCY</h5>
+					<div style="height: 2px; width:100%; background-color:grey; margin-block:30px"></div>
+
+					<div class="container text-left" style="padding: 0;">
+						<div class="row g-3">
+							<div class="col-sm-4">
+							<label>Name<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['person_name'] ?>" name="person_name">
+							</div>
+
+							<div class="col-sm-4">
+							<label>Relationship<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['person_relationship'] ?>" name="person_relationship">
+							</div>
+							
+							<div class="col-sm-4">
+							<label>Address<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['person_add'] ?>" name="person_add">
+							</div>
+
+							<div class="col-sm-4">
+							<label>Phone<span id="" style="font-size:11px;color:red">*</span></label>
+								<input class="form-control" value = "<?php echo $row['person_phone'] ?>" name="person_phone">
+							</div>
+
+						</div>
+						<?php } ?>
+					</div>
+
+
+					<div class="col-2">
+						<br>
+						<input type="submit" class="btn btn-primary" name="submit" value="Update"></button>
+					</div>
 				</div>
-
 			</div>
 		</form>
 
 		<?php
-		include('add-platoon.php');
-		include('add-officer.php');
+		include('load-modals.php');
 		include('footer.php');
 		?>
-<?php } ?>
+	<?php } ?>

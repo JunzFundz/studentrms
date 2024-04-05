@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 28, 2024 at 03:24 AM
+-- Generation Time: Apr 05, 2024 at 04:18 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -24,21 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `platoons_tb`
+-- Table structure for table `comp_tb`
 --
 
-DROP TABLE IF EXISTS `platoons_tb`;
-CREATE TABLE IF NOT EXISTS `platoons_tb` (
+DROP TABLE IF EXISTS `comp_tb`;
+CREATE TABLE IF NOT EXISTS `comp_tb` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `platoons` varchar(255) NOT NULL,
+  `comp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `platoons_tb`
+-- Dumping data for table `comp_tb`
 --
 
-INSERT INTO `platoons_tb` (`id`, `platoons`) VALUES
+INSERT INTO `comp_tb` (`id`, `comp`) VALUES
 (1, 'ALPHA'),
 (2, 'BRAVO'),
 (3, 'CHARLIE'),
@@ -50,41 +50,100 @@ INSERT INTO `platoons_tb` (`id`, `platoons`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `registration`
+-- Table structure for table `course`
 --
 
-DROP TABLE IF EXISTS `registration`;
-CREATE TABLE IF NOT EXISTS `registration` (
-  `stud_id` int NOT NULL AUTO_INCREMENT,
-  `platoon` varchar(255) NOT NULL,
-  `fname` varchar(250) NOT NULL,
-  `mname` varchar(250) NOT NULL,
-  `lname` varchar(250) NOT NULL,
-  `gender` varchar(50) NOT NULL,
-  `gname` varchar(250) NOT NULL,
-  `ocp` varchar(50) NOT NULL,
-  `nationality` varchar(250) NOT NULL,
-  `mobno` varchar(50) NOT NULL,
-  `emailid` varchar(250) NOT NULL,
-  `pro` varchar(255) NOT NULL,
-  `city` varchar(255) NOT NULL,
-  `padd` text NOT NULL,
-  `cadd` text NOT NULL,
-  `session` varchar(250) NOT NULL,
-  `session_id` int NOT NULL,
-  `regno` varchar(250) NOT NULL,
-  `regdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`stud_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE IF NOT EXISTS `course` (
+  `c_id` int NOT NULL AUTO_INCREMENT,
+  `c_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`c_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `registration`
+-- Dumping data for table `course`
 --
 
-INSERT INTO `registration` (`stud_id`, `platoon`, `fname`, `mname`, `lname`, `gender`, `gname`, `ocp`, `nationality`, `mobno`, `emailid`, `pro`, `city`, `padd`, `cadd`, `session`, `session_id`, `regno`, `regdate`) VALUES
-(13, 'ALPHA', 'Cristy', 'Cah', 'Buagas', 'Select Gender', 'sdfsdfsdfd', '', '', '987235944358734', 'cristy@gmail.com', 'sadasd', '', '', 'ertertret', '2023-2024', 14, '3501720284', '2024-02-20 03:43:41'),
-(15, 'Bravo', 'Ven', 'Doe', 'Shehe', 'Male', 'adsfsdafdsaf', '', '', '45673474646785987', 'doe@gmail.com', '', '', 'dfgfdsgdfg', 'dsfgsdfg', '2023-2024', 14, '4898878891', '2024-02-20 03:45:13'),
-(17, 'CHARLIE', 'JUNX', 'DSF', 'DSF', 'Female', 'SDFSD', 'FDG', 'DSFSDF', '5464536546', 'SDSDF@GMAIL.COM', 'ASDASD', 'ASDASD', 'ASDASD', 'ASDASD', '2023-2024', 14, '2363490022', '2024-02-22 03:16:53');
+INSERT INTO `course` (`c_id`, `c_name`) VALUES
+(1, 'Bachelor of Science in Business Administration (BSBA)'),
+(2, 'Bachelor of Science in Accountancy (BSA)'),
+(3, 'Bachelor of Science in Information Technology (BSIT)');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `first_sem`
+--
+
+DROP TABLE IF EXISTS `first_sem`;
+CREATE TABLE IF NOT EXISTS `first_sem` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `session` varchar(20) NOT NULL,
+  `company` varchar(20) NOT NULL,
+  `student_id` int NOT NULL,
+  `student_reg_number` int NOT NULL,
+  `student_name` varchar(255) NOT NULL,
+  `date_enrolled` datetime NOT NULL,
+  `date_completed` datetime NOT NULL,
+  `student_status` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `first_sem`
+--
+
+INSERT INTO `first_sem` (`id`, `session`, `company`, `student_id`, `student_reg_number`, `student_name`, `date_enrolled`, `date_completed`, `student_status`) VALUES
+(13, '2023', 'BRAVO', 16, 83645980, 'fghfdghdf ghdfghdfgh fghdfgh', '2024-04-05 23:19:24', '2024-04-05 23:19:24', 'DROPPED'),
+(12, '2023', 'ALPHA', 15, 71495220, 'fddf g fghghfg', '2024-04-05 16:45:51', '2024-04-05 17:39:26', 'DROPPED');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `second_sem`
+--
+
+DROP TABLE IF EXISTS `second_sem`;
+CREATE TABLE IF NOT EXISTS `second_sem` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `session` varchar(20) NOT NULL,
+  `company` varchar(20) NOT NULL,
+  `student_id` int NOT NULL,
+  `student_reg_number` int NOT NULL,
+  `student_name` varchar(255) NOT NULL,
+  `date_enrolled` datetime NOT NULL,
+  `date_completed` datetime NOT NULL,
+  `student_status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `second_sem`
+--
+
+INSERT INTO `second_sem` (`id`, `session`, `company`, `student_id`, `student_reg_number`, `student_name`, `date_enrolled`, `date_completed`, `student_status`) VALUES
+(11, '2023', 'ALPHA', 15, 71495220, 'fddf g fghghfg', '2024-04-05 17:39:26', '2024-04-05 17:39:26', 'DROPPED');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `semester`
+--
+
+DROP TABLE IF EXISTS `semester`;
+CREATE TABLE IF NOT EXISTS `semester` (
+  `sem_id` int NOT NULL AUTO_INCREMENT,
+  `sem` varchar(20) NOT NULL,
+  PRIMARY KEY (`sem_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `semester`
+--
+
+INSERT INTO `semester` (`sem_id`, `sem`) VALUES
+(1, '1st'),
+(2, '2nd');
 
 -- --------------------------------------------------------
 
@@ -94,23 +153,73 @@ INSERT INTO `registration` (`stud_id`, `platoon`, `fname`, `mname`, `lname`, `ge
 
 DROP TABLE IF EXISTS `session`;
 CREATE TABLE IF NOT EXISTS `session` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `sid` int NOT NULL AUTO_INCREMENT,
   `session` varchar(50) NOT NULL,
   `postingdate` date NOT NULL,
   `status` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`sid`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `session`
 --
 
-INSERT INTO `session` (`id`, `session`, `postingdate`, `status`) VALUES
-(14, '2023-2024', '2023-09-12', 1),
-(15, '2024-2025', '2023-09-12', 0),
-(16, '2025-2026', '2023-09-12', 0),
-(17, '2026-2027', '2023-09-12', 0),
-(18, '2027-2028', '0000-00-00', 0);
+INSERT INTO `session` (`sid`, `session`, `postingdate`, `status`) VALUES
+(14, '2023', '2023-09-12', 1),
+(15, '2024', '2023-09-12', 0),
+(16, '2025', '2023-09-12', 0),
+(17, '2026', '2023-09-12', 0),
+(18, '2027', '0000-00-00', 0),
+(20, '2028', '2024-05-04', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_info`
+--
+
+DROP TABLE IF EXISTS `student_info`;
+CREATE TABLE IF NOT EXISTS `student_info` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `comp` varchar(100) DEFAULT NULL,
+  `sessionid` int DEFAULT NULL,
+  `session` varchar(100) NOT NULL,
+  `course` varchar(100) DEFAULT NULL,
+  `major` varchar(100) DEFAULT NULL,
+  `semester` varchar(100) DEFAULT NULL,
+  `fname` varchar(100) DEFAULT NULL,
+  `mi` varchar(10) DEFAULT NULL,
+  `lname` varchar(100) DEFAULT NULL,
+  `gender` varchar(20) DEFAULT NULL,
+  `pbirth` varchar(100) DEFAULT NULL,
+  `dob` date DEFAULT NULL,
+  `btype` varchar(10) DEFAULT NULL,
+  `religion` varchar(50) DEFAULT NULL,
+  `region` varchar(100) DEFAULT NULL,
+  `civil` varchar(50) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `father` varchar(100) DEFAULT NULL,
+  `f_occupation` varchar(100) DEFAULT NULL,
+  `mother` varchar(100) DEFAULT NULL,
+  `m_occupation` varchar(100) DEFAULT NULL,
+  `rotc_grade` varchar(10) DEFAULT NULL,
+  `person_name` varchar(100) DEFAULT NULL,
+  `person_relationship` varchar(100) DEFAULT NULL,
+  `person_add` varchar(255) DEFAULT NULL,
+  `person_phone` varchar(20) DEFAULT NULL,
+  `date_enrolled` date NOT NULL,
+  `reg_no` int NOT NULL,
+  `status` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `student_info`
+--
+
+INSERT INTO `student_info` (`id`, `comp`, `sessionid`, `session`, `course`, `major`, `semester`, `fname`, `mi`, `lname`, `gender`, `pbirth`, `dob`, `btype`, `religion`, `region`, `civil`, `phone`, `address`, `father`, `f_occupation`, `mother`, `m_occupation`, `rotc_grade`, `person_name`, `person_relationship`, `person_add`, `person_phone`, `date_enrolled`, `reg_no`, `status`) VALUES
+(16, 'BRAVO', 14, '2023', 'Bachelor of Science in Business Administration (BSBA)', '', '1st', 'fghfdghdf', 'ghdfghdfgh', 'fghdfgh', 'Female', 'fdgh', '2024-04-25', 'dfghfdgh', 'fghfdgh', 'fghfdg', 'fghfgh', '546456', 'dsfgdfg', 'dfghfds', 'dsfg', 'dfg', 'dfgdsfg', 'dfsg', 'dsfgdf', 'gfdgjfg', 'jffdghfds', '464643', '2024-04-05', 83645980, 'DROPPED');
 
 -- --------------------------------------------------------
 
@@ -126,17 +235,19 @@ CREATE TABLE IF NOT EXISTS `tbl_login` (
   `loginid` varchar(250) NOT NULL,
   `password` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_login`
 --
 
 INSERT INTO `tbl_login` (`id`, `FullName`, `AdminEmail`, `loginid`, `password`) VALUES
-(1, 'admin1', 'adminni@gmail.com', 'admin', 'admin123'),
+(1, 'admin1', 'adminni@gmail.com', 'admin', 'admin'),
 (2, NULL, NULL, 'User', 'user'),
 (3, NULL, NULL, 'asdas', 'asd'),
-(4, NULL, NULL, 'sdfsdaf', 'asdfadsf');
+(4, NULL, NULL, 'sdfsdaf', 'asdfadsf'),
+(5, NULL, NULL, 'user2', 'user'),
+(7, NULL, NULL, 'user3', 'user');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,82 @@
+{
+  "name": "bootstrap.native",
+  "version": "5.0.12",
+  "author": "thednp",
+  "license": "MIT",
+  "description": "Bootstrap components build with Typescript",
+  "homepage": "https://thednp.github.io/bootstrap.native/",
+  "source": "./src/index.ts",
+  "main": "./dist/bootstrap-native.js",
+  "module": "./dist/bootstrap-native.mjs",
+  "exports": {
+    ".": {
+      "types": "./dist/bootstrap-native.d.ts",
+      "require": "./dist/bootstrap-native.cjs",
+      "import": "./dist/bootstrap-native.mjs"
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/thednp/bootstrap.native/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thednp/bootstrap.native.git"
+  },
+  "keywords": [
+    "twitter-bootstrap",
+    "bootstrap",
+    "native",
+    "typescript"
+  ],
+  "dependencies": {
+    "@thednp/event-listener": "^2.0.4",
+    "@thednp/shorty": "^2.0.0"
+  },
+  "devDependencies": {
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "@cypress/code-coverage": "^3.12.32",
+    "@types/istanbul-lib-instrument": "^1.7.7",
+    "@types/node": "^20.12.2",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "cypress": "^13.7.1",
+    "dts-bundle-generator": "^8.1.2",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jsdoc": "^46.10.1",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-prettier": "^4.2.1",
+    "istanbul-lib-coverage": "^3.2.2",
+    "istanbul-lib-instrument": "^5.2.1",
+    "ncp": "^2.0.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.8.8",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.3",
+    "vite": "^4.5.3"
+  },
+  "packageManager": "pnpm@8.6.12",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=8.6.0"
+  },
+  "scripts": {
+    "format": "prettier --write \"src/**/*.ts\"",
+    "pre-test": "pnpm clean-coverage",
+    "clean-coverage": "rimraf coverage .nyc_output",
+    "test": "pnpm pre-test && cypress run",
+    "dev": "vite --open ./docs/index-dev.html --port 8577",
+    "cypress": "npx cypress open",
+    "coverage:report": "nyc report --reporter=lcov --reporter=json --reporter=text --reporter=json-summary",
+    "build": "pnpm check:ts && pnpm lint:ts && pnpm build-vite && pnpm dts",
+    "build-vite": "vite build && pnpm copy-docs",
+    "dts": "dts-bundle-generator --config ./dts.config.ts",
+    "copy-docs": "ncp dist/bootstrap-native.js docs/assets/js/bootstrap-native.js && ncp dist/bootstrap-native.js.map docs/assets/js/bootstrap-native.js.map",
+    "check:ts": "tsc --noEmit",
+    "lint:ts": "eslint -c .eslintrc.cjs --ext .ts src",
+    "fix:ts": "eslint -c .eslintrc.cjs --ext .ts src --fix"
+  }
+}

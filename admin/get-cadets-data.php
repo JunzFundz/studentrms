@@ -1,33 +1,25 @@
 <?php
 include('../includes/dbconnection.php');
-
 $pID = $_POST['pID'];
 
-$stmt = "SELECT platoons_tb.platoons, platoons_tb.id, registration.session_id,
-    COUNT(registration.stud_id) AS registration_count
-    FROM platoons_tb 
-    LEFT JOIN registration ON platoons_tb.platoons = registration.platoon
-    WHERE session_id = '$pID'
-    GROUP BY platoons_tb.platoons";
+$stmt = "SELECT comp_tb.comp, comp_tb.id, student_info.session,
+    COUNT(student_info.id) AS registration_count
+    FROM comp_tb 
+    LEFT JOIN student_info ON comp_tb.comp = student_info.comp
+    WHERE session = '$pID'
+    GROUP BY comp_tb.comp";
 
 $result = mysqli_query($con, $stmt);
 
-if (mysqli_num_rows($result) > 0) {
-    while ($rows = mysqli_fetch_assoc($result)) { ?>
+if (mysqli_num_rows($result) > 0) { ?>
 
-        <div class="card border-primary mb-3" style="max-width: 18rem; margin: 10px">
-            <a href="view-all.php?platoons=<?php echo $rows['platoons']; ?>&session_id=<?php echo $rows['session_id']; ?>" 
-            style="cursor: pointer;">
-                <div class="card-header"><?php echo strtoupper($rows['platoons']) ?></div>
-                <div class="card-body text-primary">
-                    <h5 class="card-title">Number of cadets</h5>
-                    <p class="card-text"><?php echo $rows['registration_count'] ?></p>
-                </div>
-            </a>
-        </div>
+    <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-block: 1%; width:auto">
+        <?php while ($rows = mysqli_fetch_assoc($result)) { ?>
+            <button id="btn-view-data" type="button" class="btn btn-outline-primary btn-view-data" data-session="<?php echo strtoupper($rows['session']) ?>" data-company="<?php echo strtoupper($rows['comp']) ?>"><?php echo strtoupper($rows['comp']) . " " . $rows['registration_count'] ?></button>
+        <?php } ?>
+    </div>
 
-<?php }
-} else {
+<?php } else {
     echo 'No cadets found for the selected session.';
 }
 ?>

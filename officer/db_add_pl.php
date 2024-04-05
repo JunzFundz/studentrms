@@ -3,20 +3,18 @@
 
 include('../includes/dbconnection.php');
 
-    $platoon = $_POST['platoon'];
+    $comp = $_POST['comp'];
 
-    $sql = "SELECT * FROM platoons_tb WHERE platoons ='$platoon'";
+    $sql = "SELECT * FROM comp_tb WHERE comp ='$comp'";
     $query = mysqli_query($con, $sql);
 
     if(mysqli_num_rows($query) > 0){
-        echo '<script> alert("This platoon name already exists.")</script>';
+        echo '<script> alert("This company name already exists.")</script>';
     }else{
         
-    $sql = "INSERT  INTO platoons_tb (platoons) VALUES ('$platoon')";
+    $sql = "INSERT  INTO comp_tb (comp) VALUES ('$comp')";
 
     $result = mysqli_query( $con, $sql );
-    echo '<script> alert("Platoon added.")</script>';
     }
-
 
 ?>

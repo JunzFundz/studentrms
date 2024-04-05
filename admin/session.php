@@ -2,14 +2,14 @@
 //error_reporting(0);
 include('../includes/dbconnection.php');
 if (strlen($_SESSION['aid'] == 0)) {
-    header('location:logout.php');
+	header('location: ../logout.php');
 } else {
     if (isset($_POST['submit'])) {
         $status = 1;
         $session = $_POST['session'];
 
-        $sql = "update session set status='$status' where session='$session';";
-        $sql .= "update session set status='0' where session!='$session';";
+        $sql = "UPDATE session SET status='$status' WHERE session='$session';";
+        $sql .= "UPDATE session SET status='0' WHERE session!='$session';";
         $query = mysqli_multi_query($con, $sql);
         if ($query) {
             echo '<script>alert("session updated successfully")</script>';
@@ -17,6 +17,7 @@ if (strlen($_SESSION['aid'] == 0)) {
         }
     } ?>
 
+<title>Session</title>
 
 <?php include('header.php') ?>
 
@@ -63,8 +64,8 @@ if (strlen($_SESSION['aid'] == 0)) {
                                             value="<?php echo $res['session'] ?>" required="required">
                                             &nbsp;&nbsp;<?php echo $res['session'] ?>
 
-                                            <a href="#" 
-                                            data-session_id="<?php echo $res['id'] ?>" class="edit-session" data-bs-toggle="modal" data-bs-target="#modal-session" style="margin-left:5px">edit</a>
+                                            <a href="enrollees.php?session=<?php echo $res['session'] ?>"
+                                            style="margin-left:5px">View</a>
 
                                             <br>
                                         <?php  } ?>
@@ -88,10 +89,7 @@ if (strlen($_SESSION['aid'] == 0)) {
         </div>
 
         <?php
-        include('add-platoon.php');
-        include('add-officer.php');
-        include('modal/change-session.php');
-        include('modal/add-session.php');
+        include('load-modals.php');
         include('footer.php');
         ?>
 

@@ -16,7 +16,6 @@ include('../includes/dbconnection.php');
     $sql = "INSERT INTO tbl_login (loginid, password) VALUES ('$user','$password')";
 
     $result = mysqli_query( $con, $sql);
-    echo '<script> alert("Platoon added.")</script>';
     }
 
 

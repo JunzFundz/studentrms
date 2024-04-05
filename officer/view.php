@@ -6,24 +6,21 @@ if (strlen($_SESSION['aid'] == 0)) {
 } else {
     if (isset($_GET['del'])) {
         $sid = $_GET['del'];
-        $query = mysqli_query($con, "delete from registration where stud_id='$sid'");
+        $query = mysqli_query($con, "DELETE FROM student_info WHERE id='$sid'");
         echo '<script>alert("Student record  deleted")</script>';
         echo "<script>window.location.href='view.php'</script>";
     }
-
 ?>
 
+<title>View</title>
 
     <?php include('header.php') ?>
 
     <div id="wrapper">
-
         <div class="container-div">
-
             <div class="navigation">
                 <?php include('admin-header.php') ?>
             </div>
-
             <div class="side-panel">
                 <?php include('leftbar.php') ?>
             </div>
@@ -46,36 +43,36 @@ if (strlen($_SESSION['aid'] == 0)) {
                             <div class="panel-body">
 
                                 <div class="dataTable_wrapper">
-                                    <table class="table table-striped table-bordered table-hover" id="tableNew">
+                                    <table class="table table-striped table-bordered table-hover text-center" id="tableNew">
 
                                         <thead>
                                             <tr>
-                                                <th>Id number</th>
+                                                <th>Reg No.</th>
+                                                <th>Session</th>
                                                 <th>Name</th>
-                                                <th>Email</th>
                                                 <th>Phone</th>
-                                                <th>Platoon</th>
-                                                <th>Action</th>
+                                                <th>Company</th>
+                                                <th>More</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <?php
-                                            $query = mysqli_query($con, "select * from registration");
+                                            $query = mysqli_query($con, "SELECT * FROM student_info");
                                             $sn = 1;
                                             while ($res = mysqli_fetch_array($query)) {
-
                                             ?>
                                                 <tr class="odd gradeX">
                                                     <td><?php echo $sn ?></td>
-                                                    <td><?php echo htmlentities(strtoupper($res['fname'] . " " . $res['mname'] . " " . $res['lname'])); ?></td>
-                                                    <td><?php echo htmlentities(strtoupper($res['emailid'])); ?></td>
-                                                    <td><?php echo htmlentities($res['mobno']); ?></td>
-                                                    <td><?php echo htmlentities(strtoupper($res['platoon'])); ?></td>
-                                                    <td width="100"><a href="edit-student.php?stud_id=<?php echo htmlentities($res['stud_id']); ?>" class="btn btn-primary btn-xs">View</a>
+                                                    <td><?php echo htmlentities($res['session']); ?></td>
+                                                    <td><?php echo htmlentities(strtoupper($res['fname'] . " " . $res['mi'] . ". " . $res['lname'])); ?></td>
+                                                    <td><?php echo htmlentities($res['phone']); ?></td>
+                                                    <td><?php echo htmlentities(strtoupper($res['comp'])); ?></td>
+                                                    <td width="100">
 
+                                                        <a href="view-student.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-secondary btn-xs"><i class="bi bi-eye"></i></a> &nbsp;&nbsp;
+
+                                                        <a href="print.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-success btn-xs"><i class="bi bi-printer"></i></a> &nbsp;
                                                     </td>
-
                                                 </tr>
 
                                             <?php $sn++;
@@ -93,8 +90,7 @@ if (strlen($_SESSION['aid'] == 0)) {
     </div>
 
     <?php
-    include('add-platoon.php');
-    include('add-officer.php');
+    include('load-modals.php');
     include('footer.php');
     ?>
 

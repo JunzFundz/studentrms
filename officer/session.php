@@ -2,14 +2,14 @@
 //error_reporting(0);
 include('../includes/dbconnection.php');
 if (strlen($_SESSION['aid'] == 0)) {
-    header('location:logout.php');
+	header('location: ../logout.php');
 } else {
     if (isset($_POST['submit'])) {
         $status = 1;
         $session = $_POST['session'];
 
-        $sql = "update session set status='$status' where session='$session';";
-        $sql .= "update session set status='0' where session!='$session';";
+        $sql = "UPDATE session SET status='$status' WHERE session='$session';";
+        $sql .= "UPDATE session SET status='0' WHERE session!='$session';";
         $query = mysqli_multi_query($con, $sql);
         if ($query) {
             echo '<script>alert("session updated successfully")</script>';
@@ -17,6 +17,7 @@ if (strlen($_SESSION['aid'] == 0)) {
         }
     } ?>
 
+<title>Session</title>
 
 <?php include('header.php') ?>
 
@@ -48,8 +49,6 @@ if (strlen($_SESSION['aid'] == 0)) {
 
                                         <?php  } ?>
                                     </div><br>
-                                    <a href="#"  style="cursor: not-allowed;" disabled>Add session</a> 
-                                    >
                                     <a href="enrollees.php">View Enrollees</a>
                                     <br><br>
 
@@ -60,8 +59,11 @@ if (strlen($_SESSION['aid'] == 0)) {
                                             <input type="radio" 
                                             name="session" 
                                             id="session" 
-                                            value="<?php echo $res['session'] ?>" style="cursor: not-allowed;" disabled>
+                                            value="<?php echo $res['session'] ?>" required="required">
                                             &nbsp;&nbsp;<?php echo $res['session'] ?>
+
+                                            <a href="enrollees.php?session=<?php echo $res['session'] ?>"
+                                            style="margin-left:5px">View</a>
 
                                             <br>
                                         <?php  } ?>
@@ -71,7 +73,7 @@ if (strlen($_SESSION['aid'] == 0)) {
                                     <div class="col-lg-3">&nbsp;</div>
                                     <div class="col-lg-9">
                                         <br>
-                                        <input type="submit" class="btn btn-primary" name="submit" value="Update Session" style="cursor: not-allowed;" disabled>
+                                        <input disabled type="submit" class="btn btn-primary" name="submit" value="Update Session">
                                     </div>
                                 </div>
                                 </form>
@@ -85,6 +87,7 @@ if (strlen($_SESSION['aid'] == 0)) {
         </div>
 
         <?php
+        include('load-modals.php');
         include('footer.php');
         ?>
 

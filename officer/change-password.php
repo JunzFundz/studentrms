@@ -2,7 +2,7 @@
 //error_reporting(0);
 include('../includes/dbconnection.php');
 if (strlen($_SESSION['aid'] == 0)) {
-	header('location:logout.php');
+	header('location: ../logout.php');
 } else {
 
 	if (isset($_POST['submit'])) {
@@ -20,6 +20,7 @@ if (strlen($_SESSION['aid'] == 0)) {
 		}
 	}
 ?>
+<title>Change password</title>
 	<?php include('header.php') ?>
 
 	<script type="text/javascript">
@@ -101,12 +102,11 @@ if (strlen($_SESSION['aid'] == 0)) {
 								</div>
 			</form>
 		</div>
-		
+
 	</div>
 
-	<?php
-	include('add-platoon.php');
-	include('add-officer.php');
+	<?php 
+	include('load-modals.php');
 	include('footer.php');
 	?>
 <?php } ?>

@@ -3,16 +3,17 @@
 include('../includes/dbconnection.php');
 include('header.php');
 
-if (isset($_GET['platoons']) && isset($_GET['session_id'])) {
+if (isset($_GET['comp']) && isset($_GET['sessionid'])) {
 
-    $platoons = $_GET['platoons'];
-    $session_id = $_GET['session_id'];
+    $comp = $_GET['comp'];
+    $session_id = $_GET['sessionid'];
 
-    $stmt = "SELECT * FROM registration
-    LEFT JOIN platoons_tb
-    ON registration.platoon=platoons_tb.platoons
-    WHERE registration.session_id='$session_id' AND platoons_tb.platoons='$platoons'";
+    $stmt = "SELECT * FROM student_info
+    LEFT JOIN comp_tb
+    ON student_info.comp=comp_tb.comp
+    WHERE student_info.sessionid='$session_id' AND comp_tb.comp='$comp' ORDER BY status DESC";
 ?>
+<title>View All Students</title>
 
     <style>
         .btn{
@@ -71,32 +72,26 @@ if (isset($_GET['platoons']) && isset($_GET['session_id'])) {
 
     <?php if ($result = mysqli_query($con, $stmt)) {
     ?>
-
-        <h6>Platoon: <?php echo $platoons ?></h6>
+        <h6>Company: <?php echo $comp ?></h6>
         <section>
             <table class="table table-bordered border-dark">
                 <thead>
                     <tr>
-                        <th scope="col">NO.</th>
                         <th scope="col">REG NO.</th>
                         <th scope="col">NAME</th>
-                        <th scope="col">EMAIL</th>
                         <th scope="col">PHONE</th>
+                        <th scope="col">STATUS</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $num = 1;
                     foreach ($result as $row) { ?>
-
                         <tr>
-                            <th scope="row"><?php echo $num++; ?></th>
-                            <td><?php echo $row['regno'] ?></td>
-                            <td><?php echo $row['fname'] . " " . $row['mname'] . " " . $row['lname'] ?></td>
-                            <td><?php echo $row['emailid'] ?></td>
-                            <td><?php echo $row['mobno'] ?></td>
+                            <td><?php echo $row['reg_no'] ?></td>
+                            <td><?php echo $row['fname'] . " " . $row['mi'] . " " . $row['lname'] ?></td>
+                            <td><?php echo $row['phone'] ?></td>
+                            <td><?php echo $row['status'] ?></td>
                         </tr>
-
                 <?php
                     }
                 } ?>
