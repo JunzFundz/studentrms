@@ -71,7 +71,8 @@ if (strlen($_SESSION['aid'] == 0)) {
 
                                                         <a href="view-student.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-secondary btn-xs"><i class="bi bi-eye"></i></a> &nbsp;&nbsp;
 
-                                                        <a href="print.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-success btn-xs"><i class="bi bi-printer"></i></a> &nbsp;
+                                                        <a href="print.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-success btn-xs"><i class="bi bi-printer"></i></a> &nbsp;&nbsp;
+
                                                     </td>
                                                 </tr>
 

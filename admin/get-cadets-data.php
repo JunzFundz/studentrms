@@ -15,7 +15,9 @@ if (mysqli_num_rows($result) > 0) { ?>
 
     <div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-block: 1%; width:auto">
         <?php while ($rows = mysqli_fetch_assoc($result)) { ?>
-            <button id="btn-view-data" type="button" class="btn btn-outline-primary btn-view-data" data-session="<?php echo strtoupper($rows['session']) ?>" data-company="<?php echo strtoupper($rows['comp']) ?>"><?php echo strtoupper($rows['comp']) . " " . $rows['registration_count'] ?></button>
+
+            <button id="btn-view-data" type="button" class="btn btn-outline-primary btn-view-data" data-session="<?php echo strtoupper($rows['session']) ?>" data-company="<?php echo strtoupper($rows['comp']) ?>"><?php echo strtoupper($rows['comp'])?></button>
+            
         <?php } ?>
     </div>
 

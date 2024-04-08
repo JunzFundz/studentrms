@@ -49,6 +49,8 @@ if (strlen($_SESSION['aid'] == 0)) {
 
                                         <?php  } ?>
                                     </div><br>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#add-session">Add session</a> 
+                                    >
                                     <a href="enrollees.php">View Enrollees</a>
                                     <br><br>
 
@@ -73,7 +75,7 @@ if (strlen($_SESSION['aid'] == 0)) {
                                     <div class="col-lg-3">&nbsp;</div>
                                     <div class="col-lg-9">
                                         <br>
-                                        <input disabled type="submit" class="btn btn-primary" name="submit" value="Update Session">
+                                        <input type="submit" class="btn btn-primary" name="submit" value="Update Session">
                                     </div>
                                 </div>
                                 </form>

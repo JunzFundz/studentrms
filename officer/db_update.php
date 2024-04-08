@@ -6,6 +6,8 @@ if (isset($_POST['submit'])) {
     $id         = isset($_POST['id']) ? $_POST['id'] : '';
     $comp       = isset($_POST['comp']) ? $_POST['comp'] : '';
     $sem        = isset($_POST['semester']) ? $_POST['semester'] : '';
+    $course        = isset($_POST['course']) ? $_POST['course'] : '';
+    $major        = isset($_POST['major']) ? $_POST['major'] : '';
     $fname      = isset($_POST['fname']) ? $_POST['fname'] : '';
     $mi         = isset($_POST['mi']) ? $_POST['mi'] : '';
     $lname      = isset($_POST['lname']) ? $_POST['lname'] : '';
@@ -29,7 +31,9 @@ if (isset($_POST['submit'])) {
     $person_phone = isset($_POST['person_phone']) ? $_POST['person_phone'] : '';
 
     $stmt = "UPDATE student_info 
-    SET comp = '$comp', 
+    SET comp = '$comp',     
+    course = '$course',
+    major = '$major',
     semester = '$sem',
     fname = '$fname', 
     mi = '$mi', 
@@ -59,53 +63,60 @@ if (isset($_POST['submit'])) {
         if ($sem === '2nd') {
             $check = "SELECT * FROM second_sem WHERE student_id='$id'";
             $result = mysqli_query($con, $check);
-
-            if ($result && mysqli_num_rows($result) > 0) {
-                echo '<script type="text/javascript">';
-                echo 'alert("Student Already enrolled in 2nd Semester");';
-                echo 'window.location.href = "view.php" ';
-                echo '</script>';
+            if (mysqli_num_rows($result) > 0) {
+                $errorMessage = "Student already enrolled in $sem semester";
             } else {
-                $select = "SELECT reg_no, session, comp FROM student_info WHERE id='$id'";
-                $result = mysqli_query($con, $select);
+                $stmt = "UPDATE first_sem SET student_name = '$fname $mi $lname', company = '$comp', date_completed = NOW(), student_status = 'PASSED' WHERE student_id = '$id'";
 
-                $row = mysqli_fetch_assoc($result);
-                $regno = $row['reg_no'];
-                $session = $row['session'];
-                $company = $row['comp'];
+                if (mysqli_query($con, $stmt)) {
+                    $select = "SELECT * FROM student_info WHERE id='$id'";
+                    $result = mysqli_query($con, $select);
+                    $row = mysqli_fetch_assoc($result);
 
-                $insertSecondSem = "INSERT INTO second_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, date_completed, student_status) VALUES ('$session', '$company', '$id', '$regno', '$fname $mi $lname', NOW(), NOW(), 'ONGOING')";
-
-                if (mysqli_query($con, $insertSecondSem)) {
-
-                    $updateFirstSem = "UPDATE first_sem SET date_completed = NOW(), student_status = 'COMPLETED' WHERE student_id = '$id'";
-                    if (mysqli_query($con, $updateFirstSem)) {
-
-                        $stmt = "UPDATE student_info SET semester= '2nd' WHERE id = '$id'";
-                        if(mysqli_query($con, $stmt)){
-                            echo '<script type="text/javascript">';
-                            echo 'alert("Successfully updated");';
-                            echo 'window.location.href = "view.php" ';
-                            echo '</script>';
-                        }
-
-                    } else {
-                        echo "Error updating first_sem: " . mysqli_error($con);
-                    }
-                } else {
-                    echo "Error inserting records into second_sem: " . mysqli_error($con);
+                    $regno = $row['reg_no'];
+                    $session = $row['session'];
+                    $company = $row['comp'];
+                    $full_name = $row['fname'] . " " . $row['mi'] . ". " . $row['lname'];
+                    $insertSecondSem = "INSERT INTO second_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status) VALUES ('$session', '$company', '$id', '$regno', '$full_name', NOW(), 'ONGOING')";
+                    $newresult = mysqli_query($con, $insertSecondSem);
+                    $successMessage = "Successfully enrolled in 2nd semester";
                 }
             }
         } else {
-            echo '<script type="text/javascript">';
-            echo 'alert("Successfully updated");';
-            echo 'window.location.href = "view.php" ';
-            echo '</script>';
+            $stmt = "UPDATE first_sem SET student_name = '$fname $mi $lname', company = '$comp' WHERE student_id = '$id'";
+
+            if (mysqli_query($con, $stmt)) {
+                $check = "SELECT * FROM second_sem WHERE id='$id'";
+                $result = mysqli_query($con, $check);
+
+                if ($result && mysqli_num_rows($result) > 0) {
+                    $stmt = "UPDATE second_sem SET student_name = '$fname $mi $lname', company = '$comp' WHERE id = '$id'";
+                    if (mysqli_query($con, $stmt)) {
+                        $successMessage = "Successfully updated";
+                    }
+                } else {
+                    $errorMessage = "Error updating second sem records: " . mysqli_error($con);
+                }
+                $successMessage = "Successfully updated";
+            } else {
+                $errorMessage = "Error updating first sem records: " . mysqli_error($con);
+            }
         }
     } else {
+        $errorMessage = "Error updating records: " . mysqli_error($con);
+    }
+
+
+
+    if (isset($successMessage)) {
         echo '<script type="text/javascript">';
-        echo 'alert("Error updating records: ' . mysqli_error($con) . '");';
-        echo 'window.location.href = "edit-student.php" ';
+        echo 'alert("' . $successMessage . '");';
+        echo 'window.location.href = "view.php";';
+        echo '</script>';
+    } elseif (isset($errorMessage)) {
+        echo '<script type="text/javascript">';
+        echo 'alert("' . $errorMessage . '");';
+        echo 'window.location.href = "view.php";';
         echo '</script>';
     }
 }

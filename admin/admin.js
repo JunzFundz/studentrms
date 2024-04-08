@@ -85,7 +85,6 @@ $(document).ready(function () {
     });
 
 
-
     $(document).on('click', '#ongoing', function (e) {
         e.preventDefault();
         var sessionID = $(this).data('session_id');
@@ -97,6 +96,7 @@ $(document).ready(function () {
             url: "db_ongoing_lists.php",
             type: "post",
             data: {
+                'ongoing': true,
                 'session_id': sessionID,
                 'comp': company
             },
@@ -111,17 +111,16 @@ $(document).ready(function () {
     //? list dropped
     $(document).on('click', '#dropped', function (e) {
         e.preventDefault();
-        var sessionID = $(this).data('session_id');
-        var company = $(this).data('company');
+        var session = $(this).data('session');
 
-        // console.log(sessionID, company)
+        console.log(session)
 
         $.ajax({
-            url: "db_dropped_lists.php",
+            url: "db_status_lists.php",
             type: "post",
             data: {
-                'session_id': sessionID,
-                'comp': company
+                'dropped' : true,
+                'session': session
             },
             success: function (data) {
                 $(".modal-body").html(data);
@@ -178,7 +177,32 @@ $(document).on('click', '.btn-view-data', function (e) {
     });
 });
 
-$(document).on('click', '.student-passed', function (e) {
+// $(document).on('click', '.first-passed', function (e) {
+//     e.preventDefault();
+//     var id = $(this).data('id');
+
+//     console.log(id);
+
+//     $.ajax({
+//         url: "db_set_status.php",
+//         type: "post",
+//         data: {
+//             'first': true,
+//             'id': id
+//         },
+//         success: function (data) {
+//             if (data.success) {
+//                 alert('success');
+//                 location.reload();
+//             } else {
+//                 alert('Error');
+//                 location.reload();
+//             }
+//         }
+//     });
+// });
+
+$(document).on('click', '.passed', function (e) {
     e.preventDefault();
     var id = $(this).data('id');
 
@@ -188,15 +212,15 @@ $(document).on('click', '.student-passed', function (e) {
         url: "db_set_status.php",
         type: "post",
         data: {
-            'passed': true,
+            'second': true,
             'id': id
         },
         success: function (data) {
             if (data.success) {
-                alert('success');
+                alert(data.success);
                 location.reload();
-            }else{
-                alert('Error');
+            } else {
+                alert(data.error);
                 location.reload();
             }
         }
@@ -220,7 +244,7 @@ $(document).on('click', '.drop-student', function (e) {
             if (data.success) {
                 alert('success');
                 location.reload();
-            }else{
+            } else {
                 alert('Error');
                 location.reload();
             }
@@ -245,7 +269,7 @@ $(document).on('click', '.drop-studentf', function (e) {
             if (data.success) {
                 alert('success');
                 location.reload();
-            }else{
+            } else {
                 alert('Error');
                 location.reload();
             }

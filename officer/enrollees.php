@@ -92,7 +92,6 @@ if (strlen($_SESSION['aid'] == 0)) {
 
                                                     <a href="print.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-success btn-xs"><i class="bi bi-printer"></i></a> &nbsp;
 
-                                                    <button disabled href="enrollees.php?del=<?php echo htmlentities($res['id']); ?>" class="btn btn-danger btn-xs" onclick="return confirm('Do you really want to delete?');"><i class="bi bi-chevron-bar-expand"></i></button>
                                                 </td>
                                             </tr>
 

@@ -107,8 +107,7 @@ if (strlen($_SESSION['aid'] == 0)) {
 			</div>
 
             <?php 
-            include('add-platoon.php');
-            include('add-officer.php');
+            include('load-modals.php');
             include('footer.php');
             ?>
 

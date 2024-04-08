@@ -15,6 +15,13 @@ $result_second = mysqli_query($con, $stmt_second);
 <div class="firstsem">
     <h5 id="title-heading">First semester</h5>
     <br>
+    <?php
+    $sql = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM first_sem WHERE student_status='DROPPED' AND session = '$session'");
+    $row = mysqli_fetch_assoc($sql);
+    ?>
+    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row['session']; ?>">Dropped : <?php echo $row['dropped']; ?></a>
+    <br>
+    <br>
     <table id="tableNew1st" class="table table-hover table-borderless">
         <thead>
             <tr>
@@ -40,9 +47,16 @@ $result_second = mysqli_query($con, $stmt_second);
                         <div class="dropdown">
                             <button disabled class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
                             <ul class="dropdown-menu">
-                                <li><a 
-                                data-id="<?= $first['student_id']; ?>"
-                                class="dropdown-item drop-studentf" href="#">Drop</a></li>
+                                <?php
+                                if ($first['student_status'] == 'PASSED' || $first['student_status'] == 'DROPPED') { ?>
+                                    <li>
+                                        <button disabled class="dropdown-item drop-studentf" data-id="<?= $first['student_id']; ?>" href="#">Drop</button>
+                                    </li>
+                                <?php } else { ?>
+                                    <li>
+                                        <a class="dropdown-item drop-studentf" data-id="<?= $first['student_id']; ?>" href="#">Drop</a>
+                                    </li>
+                                <?php } ?>
                             </ul>
                         </div>
                     </td>
@@ -54,6 +68,13 @@ $result_second = mysqli_query($con, $stmt_second);
 
 <div class="secondsem">
     <h5 id="title-heading">Second semester</h5>
+    <br>
+    <?php
+    $sql = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM second_sem WHERE student_status='DROPPED' AND session = '$session'");
+    $row = mysqli_fetch_assoc($sql);
+    ?>
+    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row['session']; ?>">Dropped : <?php echo $row['dropped']; ?></a>
+    <br>
     <br>
     <table id="tableNew2nd" class="table table-hover table-borderless">
         <thead>
@@ -80,12 +101,19 @@ $result_second = mysqli_query($con, $stmt_second);
                         <div class="dropdown">
                             <button disabled class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item drop-student" href="#"
-                                data-id="<?= $second['student_id']; ?>"
-                                >Drop</a></li>
-                                <li><a class="dropdown-item student-passed"
-                                data-id="<?= $second['student_id']; ?>"
-                                href="#">Passed</a></li>
+                                <li><a class="dropdown-item drop-student" href="#" data-id="<?= $second['student_id']; ?>">Drop</a></li>
+
+                                <?php
+                                if ($second['student_status'] == 'DROPPED' || $second['student_status'] == 'PASSED') { ?>
+                                    <li>
+                                        <button disabled class="dropdown-item passed" data-id="<?= $second['student_id']; ?>" href="#">Passed</button>
+                                    </li>
+                                <?php } else { ?>
+                                    <li>
+                                        <a class="dropdown-item passed" data-id="<?= $second['student_id']; ?>" href="#">Passed</a>
+                                    </li>
+                                <?php } ?>
+
                             </ul>
                         </div>
                     </td>
