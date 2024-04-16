@@ -106,8 +106,6 @@ if (isset($_POST['submit'])) {
         $errorMessage = "Error updating records: " . mysqli_error($con);
     }
 
-
-
     if (isset($successMessage)) {
         echo '<script type="text/javascript">';
         echo 'alert("' . $successMessage . '");';
@@ -120,3 +118,6 @@ if (isset($_POST['submit'])) {
         echo '</script>';
     }
 }
+
+
+

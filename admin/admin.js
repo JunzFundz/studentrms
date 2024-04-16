@@ -84,30 +84,6 @@ $(document).ready(function () {
         })
     });
 
-
-    $(document).on('click', '#ongoing', function (e) {
-        e.preventDefault();
-        var sessionID = $(this).data('session_id');
-        var company = $(this).data('company');
-
-        // console.log(sessionID, company)
-
-        $.ajax({
-            url: "db_ongoing_lists.php",
-            type: "post",
-            data: {
-                'ongoing': true,
-                'session_id': sessionID,
-                'comp': company
-            },
-            success: function (data) {
-                $(".modal-body").html(data);
-                $('#ongoing-modal').modal('show');
-            }
-        });
-    });
-
-
     //? list dropped
     $(document).on('click', '#dropped', function (e) {
         e.preventDefault();
@@ -119,7 +95,8 @@ $(document).ready(function () {
             url: "db_status_lists.php",
             type: "post",
             data: {
-                'dropped' : true,
+                'see_dropped': true,
+                'dropped': true,
                 'session': session
             },
             success: function (data) {
@@ -128,8 +105,123 @@ $(document).ready(function () {
             }
         });
     });
-})
 
+    $(document).on('click', '#passed', function (e) {
+        e.preventDefault();
+        var session = $(this).data('session');
+
+        $.ajax({
+            url: "db_status_lists.php",
+            type: "post",
+            data: {
+                'see_passed': true,
+                'passed': true,
+                'session': session
+            },
+            success: function (data) {
+                $(".modal-body").html(data);
+                $('#passed-modal').modal('show');
+            }
+        });
+    });
+    $(document).on('click', '.add-grade', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        console.log(id)
+
+        $.ajax({
+            url: "get-grades-modal.php",
+            type: "post",
+            data: {
+                'first_id': true,
+                'id': id
+            },
+            success: function (data) {
+                $(".modal-body").html(data);
+                $('#add-grade-first').modal('show');
+            }
+        });
+    });
+
+    $(document).on('click', '.add-second-grade', function (e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+
+        console.log(id)
+
+        $.ajax({
+            url: "get-grades-second.php",
+            type: "post",
+            data: {
+                'second_id': true,
+                'id': id
+            },
+            success: function (data) {
+                $(".modal-body2").html(data);
+                $('#grade-second').modal('show');
+            }
+        });
+    });
+
+    $(document).on('click', '.first_grade_submit', function (e) {
+        e.preventDefault();
+        var student_id = $(this).data('id');
+        var grade = $('#grade').val();
+
+        console.log(student_id, grade)
+        $.ajax({
+            url: "db_add_grades.php",
+            type: "POST",
+            data: {
+                'student_id': student_id,
+                'grade': grade
+            },
+            success: function (data) {
+                alert('Success');
+                location.reload();
+            }
+        });
+    });
+
+    $(document).on('click', '#second_submit', function (e) {
+        e.preventDefault();
+        var student_id = $(this).data('second_id');
+        var second_grade = $('#second_grade').val();
+
+        console.log(student_id, second_grade)
+        $.ajax({
+            url: "db_add_second.php",
+            type: "POST",
+            data: {
+                'student_id': student_id,
+                'grade': second_grade
+            },
+            success: function (data) {
+                alert('Success');
+                location.reload();
+            }
+        });
+    });
+
+    $(document).on('click', '#add-course-btn', function (e) {
+        e.preventDefault();
+        var course = $('#course_name').val();
+        console.log(course)
+        $.ajax({
+            url: "db_set_status.php",
+            type: "POST",
+            data: {
+                'add_course': true,
+                'course': course
+            },
+            success: function (data) {
+                alert('Success');
+                location.reload();
+            }
+        });
+    });
+})
 
 function saveDataToSessionStorage(key, data) {
     sessionStorage.setItem(key, data);
@@ -288,9 +380,5 @@ $(document).ready(function () {
         $('.table-data').html(tableData);
     }
 });
-
-$(document).on('click', '.drop-student', function () {
-
-})
 
 

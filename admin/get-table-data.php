@@ -16,10 +16,16 @@ $result_second = mysqli_query($con, $stmt_second);
     <h5 id="title-heading">First semester</h5>
     <br>
     <?php
-    $sql = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM first_sem WHERE student_status='DROPPED' AND session = '$session'");
-    $row = mysqli_fetch_assoc($sql);
+    $sql_dropped = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM first_sem WHERE student_status='DROPPED' AND session = '$session'");
+    $row_dropped = mysqli_fetch_assoc($sql_dropped);
+
+    $sql_passed = mysqli_query($con, "SELECT session, COUNT(student_status) AS passed FROM first_sem WHERE student_status='PASSED' AND session = '$session'");
+    $row_passed = mysqli_fetch_assoc($sql_passed);
     ?>
-    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row['session']; ?>">Dropped : <?php echo $row['dropped']; ?></a>
+    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row_dropped['session']; ?>" data-sem="first">Dropped : <?php echo $row_dropped['dropped']; ?></a>
+    <br>
+    <a style="color:green" href="#" id="passed" data-session="<?php echo $row_passed['session']; ?>" data-sem="first">Passed : <?php echo $row_passed['passed']; ?></a>
+
     <br>
     <br>
     <table id="tableNew1st" class="table table-hover table-borderless">
@@ -40,8 +46,8 @@ $result_second = mysqli_query($con, $stmt_second);
                     <td><?= $first['session']; ?></td>
                     <td><?= $first['company']; ?></td>
                     <td><?= strtoupper($first['student_name']); ?></td>
-                    <td><?= date('d-m-y', strtotime($first['date_enrolled'])) ?></td>
-                    <td><?= date('d-m-y', strtotime($first['date_completed'])) ?></td>
+                    <td><?= $first['date_enrolled'] ?></td>
+                    <td><?= $first['date_completed'] ?></td>
                     <td><?= $first['student_status']; ?></td>
                     <td>
                         <div class="dropdown">
@@ -57,11 +63,15 @@ $result_second = mysqli_query($con, $stmt_second);
                                         <a class="dropdown-item drop-studentf" data-id="<?= $first['student_id']; ?>" href="#">Drop</a>
                                     </li>
                                 <?php } ?>
+                                <li>
+                                    <a class="dropdown-item add-grade" data-id="<?= $first['student_id']; ?>" href="#">Input Grade</a>
+                                </li>
                             </ul>
                         </div>
                     </td>
                 </tr>
-            <?php } ?>
+            <?php include 'modal/add-grade.php';
+            } ?>
         </tbody>
     </table>
 </div>
@@ -70,10 +80,18 @@ $result_second = mysqli_query($con, $stmt_second);
     <h5 id="title-heading">Second semester</h5>
     <br>
     <?php
-    $sql = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM second_sem WHERE student_status='DROPPED' AND session = '$session'");
-    $row = mysqli_fetch_assoc($sql);
-    ?>
-    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row['session']; ?>">Dropped : <?php echo $row['dropped']; ?></a>
+// Fetch dropped students count from second_sem
+$sql_dropped = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM second_sem WHERE student_status='DROPPED' AND session = '$session'");
+$row_dropped = mysqli_fetch_assoc($sql_dropped);
+
+// Fetch passed students count from second_sem
+$sql_passed = mysqli_query($con, "SELECT session, COUNT(student_status) AS passed FROM second_sem WHERE student_status='PASSED' AND session = '$session'");
+$row_passed = mysqli_fetch_assoc($sql_passed);
+?>
+<a style="color:red" href="#" id="dropped" data-session="<?php echo $row_dropped['session']; ?>" data-sem="second">Dropped : <?php echo $row_dropped['dropped']; ?></a>
+<br>
+<a style="color:green" href="#" id="passed" data-session="<?php echo $row_passed['session']; ?>" data-sem="second">Passed : <?php echo $row_passed['passed']; ?></a>
+
     <br>
     <br>
     <table id="tableNew2nd" class="table table-hover table-borderless">
@@ -94,8 +112,8 @@ $result_second = mysqli_query($con, $stmt_second);
                     <td><?= $second['session']; ?></td>
                     <td><?= $second['company']; ?></td>
                     <td><?= strtoupper($second['student_name']); ?></td>
-                    <td><?= date('d-m-y', strtotime($second['date_enrolled'])) ?></td>
-                    <td><?= date('d-m-y', strtotime($second['date_completed'])) ?></td>
+                    <td><?= $second['date_enrolled'] ?></td>
+                    <td><?= $second['date_completed'] ?></td>
                     <td><?= $second['student_status']; ?></td>
                     <td>
                         <div class="dropdown">
@@ -113,7 +131,9 @@ $result_second = mysqli_query($con, $stmt_second);
                                         <a class="dropdown-item passed" data-id="<?= $second['student_id']; ?>" href="#">Passed</a>
                                     </li>
                                 <?php } ?>
-
+                                <li>
+                                    <a class="dropdown-item add-second-grade" data-id="<?= $second['student_id']; ?>" href="#">Input Grade</a>
+                                </li>
                             </ul>
                         </div>
                     </td>

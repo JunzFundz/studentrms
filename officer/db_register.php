@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $f_occupation = $_POST['f_occupation'];
     $mother = $_POST['mother'];
     $m_occupation = $_POST['m_occupation'];
-    $rotc_grade = $_POST['rotc_grade'];
+    $rotc_grade = "N/A";
     $person_name = $_POST['person_name'];
     $person_relationship = $_POST['person_relationship'];
     $person_add = $_POST['person_add'];
@@ -42,9 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $id = mysqli_insert_id($con);
 
-        $inserttoSem = "INSERT INTO first_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status) VALUES('$session', '$comp', '$id', '$regno', '$fname $mi $lname', NOW(), '$status')";
+        $inserttoSem = "INSERT INTO first_sem (session, company, student_id, student_reg_number, student_name, date_enrolled,first_grade, student_status) VALUES('$session', '$comp', '$id', '$regno', '$fname $mi $lname', NOW(),'$rotc_grade', '$status')";
 
-        if(mysqli_query($con, $inserttoSem)){
+        if (mysqli_query($con, $inserttoSem)) {
             echo '<script type="text/javascript">';
             echo 'alert("Successfully registered");';
             echo 'window.location.href = "add.php" ';

@@ -73,6 +73,10 @@ if (strlen($_SESSION['aid'] == 0)) {
 
                                                         <a href="print.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-success btn-xs"><i class="bi bi-printer"></i></a> &nbsp;&nbsp;
 
+
+                                                        <a hidden href="edit-student.php?id=<?php echo htmlentities($res['id']); ?>" class="btn btn-primary btn-xs"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;
+
+                                                        <a hidden href="view.php?del=<?php echo htmlentities($res['id']); ?>" class="btn btn-danger btn-xs" onclick="return confirm('Do you really want to delete?');"><i class="bi bi-trash3"></i></a>
                                                     </td>
                                                 </tr>
 

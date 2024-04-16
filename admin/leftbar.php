@@ -23,6 +23,9 @@
             <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">&nbsp;&nbsp;&nbsp;<i class="bi bi-database-fill-add"></i>&nbsp;&nbsp;ADD COMPANY</a>
         </li>
         <li>
+            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#add-course">&nbsp;&nbsp;&nbsp;<i class="bi bi-align-bottom"></i>&nbsp;&nbsp;ADD COURSE</a>
+        </li>
+        <li>
             <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#adduser">&nbsp;&nbsp;&nbsp;<i class="bi bi-plus-lg"></i>&nbsp;&nbsp;ADD USER</a>
         </li>
         <li>

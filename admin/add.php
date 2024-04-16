@@ -187,10 +187,10 @@ if (strlen($_SESSION['aid'] == 0)) {
 								<input required class="form-control" name="m_occupation">
 							</div>
 							
-							<div class="col-sm-3">
+							<!-- <div class="col-sm-3">
 							<label>ROTC Grade (1st Semester)<span id="" style="font-size:11px;color:red">*</span></label>
 								<input required class="form-control" name="rotc_grade">
-							</div>
+							</div> -->
 
 						</div>
 					</div>

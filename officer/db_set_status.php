@@ -24,7 +24,7 @@ if (isset($_POST['first'])) {
             $regno = $row['reg_no'];
             $session = $row['session'];
             $company = $row['comp'];
-            $full_name = $row['fname'] ." ". $row['mi'] . ". " . $row['lname'];
+            $full_name = $row['fname'] . " " . $row['mi'] . ". " . $row['lname'];
 
             $insertSecondSem = "INSERT INTO second_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status) VALUES ('$session', '$company', '$id', '$regno', '$full_name', NOW(), 'ONGOING')";
 
@@ -144,4 +144,31 @@ if (isset($_POST['droppedf'])) {
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;
+}
+
+if (isset($_POST['add_course'])) {
+    $course = $_POST['course'];
+
+    $sql = mysqli_query($con, "SELECT * FROM course WHERE c_name = '$course'");
+    if (mysqli_num_rows($sql) >  0) {
+        echo '<script type="text/javascript">';
+        echo 'alert("Course exist!");';
+        echo 'window.location.href = "dashboard.php";';
+        echo '</script>';
+        return false;
+    } else {
+        $sql = mysqli_query($con, "INSERT INTO course (c_name) VALUES ('$course')");
+        if ($sql) {
+            echo '<script type="text/javascript">';
+            echo 'alert("Successfully Added!");';
+            echo 'window.location.href = "dashboard.php";';
+            echo '</script>';
+            return true;
+        } else {
+            echo '<script type="text/javascript">';
+            echo 'alert("Error");';
+            echo '</script>';
+            return false;
+        }
+    }
 }

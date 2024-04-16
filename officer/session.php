@@ -49,8 +49,8 @@ if (strlen($_SESSION['aid'] == 0)) {
 
                                         <?php  } ?>
                                     </div><br>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#add-session">Add session</a> 
-                                    >
+                                    <a hidden href="" data-bs-toggle="modal" data-bs-target="#add-session">Add session</a> 
+                                    
                                     <a href="enrollees.php">View Enrollees</a>
                                     <br><br>
 
@@ -58,7 +58,7 @@ if (strlen($_SESSION['aid'] == 0)) {
                                         <?php
                                         $query = mysqli_query($con, "SELECT * FROM `session`");
                                         while ($res = mysqli_fetch_array($query)) { ?>
-                                            <input type="radio" 
+                                            <input disabled type="radio" 
                                             name="session" 
                                             id="session" 
                                             value="<?php echo $res['session'] ?>" required="required">
@@ -75,7 +75,7 @@ if (strlen($_SESSION['aid'] == 0)) {
                                     <div class="col-lg-3">&nbsp;</div>
                                     <div class="col-lg-9">
                                         <br>
-                                        <input type="submit" class="btn btn-primary" name="submit" value="Update Session">
+                                        <input disabled type="submit" class="btn btn-primary" name="submit" value="Update Session">
                                     </div>
                                 </div>
                                 </form>

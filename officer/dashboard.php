@@ -2,11 +2,11 @@
 session_start();
 include('../includes/dbconnection.php');
 if (strlen($_SESSION['aid'] == 0)) {
-    header('location: ../logout.php');
+	header('location: ../logout.php');
 } else {
 ?>
 
-    <title>Dashboard</title>
+<title>Dashboard</title>
 
     <?php include('header.php'); ?>
 

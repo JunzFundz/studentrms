@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 05, 2024 at 04:18 PM
+-- Generation Time: Apr 16, 2024 at 05:31 PM
 -- Server version: 8.2.0
 -- PHP Version: 8.2.13
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `c_id` int NOT NULL AUTO_INCREMENT,
   `c_name` varchar(255) NOT NULL,
   PRIMARY KEY (`c_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `course`
@@ -67,7 +67,8 @@ CREATE TABLE IF NOT EXISTS `course` (
 INSERT INTO `course` (`c_id`, `c_name`) VALUES
 (1, 'Bachelor of Science in Business Administration (BSBA)'),
 (2, 'Bachelor of Science in Accountancy (BSA)'),
-(3, 'Bachelor of Science in Information Technology (BSIT)');
+(3, 'Bachelor of Science in Information Technology (BSIT)'),
+(4, '678fghfgh');
 
 -- --------------------------------------------------------
 
@@ -83,19 +84,23 @@ CREATE TABLE IF NOT EXISTS `first_sem` (
   `student_id` int NOT NULL,
   `student_reg_number` int NOT NULL,
   `student_name` varchar(255) NOT NULL,
-  `date_enrolled` datetime NOT NULL,
-  `date_completed` datetime NOT NULL,
+  `date_enrolled` date NOT NULL,
+  `date_completed` date NOT NULL,
   `student_status` varchar(20) NOT NULL,
+  `first_sem_grade` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `first_sem`
 --
 
-INSERT INTO `first_sem` (`id`, `session`, `company`, `student_id`, `student_reg_number`, `student_name`, `date_enrolled`, `date_completed`, `student_status`) VALUES
-(13, '2023', 'BRAVO', 16, 83645980, 'fghfdghdf ghdfghdfgh fghdfgh', '2024-04-05 23:19:24', '2024-04-05 23:19:24', 'DROPPED'),
-(12, '2023', 'ALPHA', 15, 71495220, 'fddf g fghghfg', '2024-04-05 16:45:51', '2024-04-05 17:39:26', 'DROPPED');
+INSERT INTO `first_sem` (`id`, `session`, `company`, `student_id`, `student_reg_number`, `student_name`, `date_enrolled`, `date_completed`, `student_status`, `first_sem_grade`) VALUES
+(17, '2023', 'CHARLIE', 20, 44966164, 'dfgdfgdsf sdfgsfdg dfsgdfsg', '2024-04-08', '2024-04-17', 'PASSED', '0'),
+(18, '2023', 'ALPHA', 21, 98441171, 'JHBBSDBSDBKJ DFADSF SDAF', '2024-04-08', '2024-04-08', 'ONGOING', '78'),
+(19, '2023', 'ECHO', 22, 45997730, 'SDFASDF SADFASDFAS FASDFASDF', '2024-04-08', '2024-04-08', 'ONGOING', '78'),
+(20, '2023', 'CHARLIE', 23, 78349007, 'dfgsdg dsfgdsfg sfdgfdg', '2024-04-08', '0000-00-00', 'DROPPED', '0'),
+(22, '2023', 'ALPHA', 25, 45559046, 'dsff dsfsdafas sadfsaddf', '2024-04-16', '2024-04-16', 'PASSED', '');
 
 -- --------------------------------------------------------
 
@@ -111,18 +116,20 @@ CREATE TABLE IF NOT EXISTS `second_sem` (
   `student_id` int NOT NULL,
   `student_reg_number` int NOT NULL,
   `student_name` varchar(255) NOT NULL,
-  `date_enrolled` datetime NOT NULL,
-  `date_completed` datetime NOT NULL,
+  `date_enrolled` date NOT NULL,
+  `date_completed` date NOT NULL,
   `student_status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `second_sem_grade` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `second_sem`
 --
 
-INSERT INTO `second_sem` (`id`, `session`, `company`, `student_id`, `student_reg_number`, `student_name`, `date_enrolled`, `date_completed`, `student_status`) VALUES
-(11, '2023', 'ALPHA', 15, 71495220, 'fddf g fghghfg', '2024-04-05 17:39:26', '2024-04-05 17:39:26', 'DROPPED');
+INSERT INTO `second_sem` (`id`, `session`, `company`, `student_id`, `student_reg_number`, `student_name`, `date_enrolled`, `date_completed`, `student_status`, `second_sem_grade`) VALUES
+(26, '2023', 'CHARLIE', 20, 44966164, 'dfgdfgdsf sdfgsfdg. dfsgdfsg', '2024-04-17', '0000-00-00', 'ONGOING', '45'),
+(25, '2023', 'ALPHA', 25, 45559046, 'dsff dsfsdafas. sadfsaddf', '2024-04-16', '0000-00-00', 'PASSED', '67');
 
 -- --------------------------------------------------------
 
@@ -212,14 +219,18 @@ CREATE TABLE IF NOT EXISTS `student_info` (
   `reg_no` int NOT NULL,
   `status` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `student_info`
 --
 
 INSERT INTO `student_info` (`id`, `comp`, `sessionid`, `session`, `course`, `major`, `semester`, `fname`, `mi`, `lname`, `gender`, `pbirth`, `dob`, `btype`, `religion`, `region`, `civil`, `phone`, `address`, `father`, `f_occupation`, `mother`, `m_occupation`, `rotc_grade`, `person_name`, `person_relationship`, `person_add`, `person_phone`, `date_enrolled`, `reg_no`, `status`) VALUES
-(16, 'BRAVO', 14, '2023', 'Bachelor of Science in Business Administration (BSBA)', '', '1st', 'fghfdghdf', 'ghdfghdfgh', 'fghdfgh', 'Female', 'fdgh', '2024-04-25', 'dfghfdgh', 'fghfdgh', 'fghfdg', 'fghfgh', '546456', 'dsfgdfg', 'dfghfds', 'dsfg', 'dfg', 'dfgdsfg', 'dfsg', 'dsfgdf', 'gfdgjfg', 'jffdghfds', '464643', '2024-04-05', 83645980, 'DROPPED');
+(25, 'ALPHA', 14, '2023', 'Bachelor of Science in Business Administration (BSBA)', '', '2nd', 'dsff', 'dsfsdafas', 'sadfsaddf', 'Select Gender', 'asdfsadf', '2024-04-30', 'sdfsad', '345324fgdfg', 'sdfsadf', 'sdf', '542353245', 'dfgdsfg', 'dfsgsdf', 'gdsfgsdfg', 'dfsgsdfg', 'dfsgsdfg', 'N/A', 'dfsgsdf', 'sdfgds', 'fdsgdsfgfds', '567656', '2024-04-16', 45559046, 'SUBJECT COMPLETED'),
+(20, 'CHARLIE', 14, '2023', 'Bachelor of Science in Information Technology (BSIT)', 'sfg', '2nd', 'dfgdfgdsf', 'sdfgsfdg', 'dfsgdfsg', 'Select Gender', 'sfdgsdfgsfg', '2024-04-26', 'sdfgsdfg', 'dfgdsfg', 'dsfgsdfg', 'gfdsgdsfg', '536456456', 'dfsgdsfg', 'dfgdfsg', 'dfgdfsg', 'fdgdsf', 'fdgsdfg', 'dfgdsfg', 'dfsgsdfg', 'dfsgdfsg', 'dfsgfds', '565346546', '2024-04-08', 44966164, 'DROPPED'),
+(21, 'ALPHA', 14, '2023', 'Bachelor of Science in Business Administration (BSBA)', '', '2nd', 'JHBBSDBSDBKJ', 'DFADSF', 'SDAF', 'Select Gender', 'DSAFASD', '2024-04-25', 'ADFASD', 'ASDFSADF', 'SADFSADF', 'SDFASDF', '456345', 'FDSGSDFG', 'SDFSGFG', 'DFG', 'DFSG', 'DFG', 'DFGSDFG', 'DSFGSDFG', 'DFGDSFG', 'DFG', '635654645', '2024-04-08', 98441171, 'SUBJECT COMPLETED'),
+(22, 'ECHO', 14, '2023', 'Bachelor of Science in Business Administration (BSBA)', 'SADAS', '2nd', 'SDFASDF', 'SADFASDFAS', 'FASDFASDF', 'Select Gender', 'ASDFASDF', '2024-04-24', 'FDGDFGSD', 'SDAFSDA', 'FASDFSAD', 'FASDFASD', '5463456', 'DSFGDSFG', 'DFSGDSF', 'GDFSGDFG', 'DFGDFSG', 'DFGDFG', 'DFGDFG', 'DFGDSFGSDF', 'DFGDFSGDFS', 'DFSGDSFG', '45467346', '2024-04-08', 45997730, 'DROPPED'),
+(23, 'CHARLIE', 14, '2023', 'Bachelor of Science in Business Administration (BSBA)', 'gf', '1st', 'dfgsdg', 'dsfgdsfg', 'sfdgfdg', 'Male', 'sdfgsdgsdg', '2024-04-24', 'dsfgfdsgfd', 'gdsfg', 'dfgdfs', 'dsfgdsfg', '453454534', 'dfgdfsg', 'dfgdfsg', 'dfsgfd', 'dfsgdfsgdfgdsf', 'fgsdfg', 'gdfsgds', 'dfsgdfg', 'fdgdfg', 'dfgdsf', '56356435646', '2024-04-08', 78349007, 'DROPPED');
 
 -- --------------------------------------------------------
 
@@ -243,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `tbl_login` (
 
 INSERT INTO `tbl_login` (`id`, `FullName`, `AdminEmail`, `loginid`, `password`) VALUES
 (1, 'admin1', 'adminni@gmail.com', 'admin', 'admin'),
-(2, NULL, NULL, 'User', 'user'),
+(2, 'ES', 'user', 'User', 'user'),
 (3, NULL, NULL, 'asdas', 'asd'),
 (4, NULL, NULL, 'sdfsdaf', 'asdfadsf'),
 (5, NULL, NULL, 'user2', 'user'),
