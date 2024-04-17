@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $id = mysqli_insert_id($con);
 
-        $inserttoSem = "INSERT INTO first_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status) VALUES('$session', '$comp', '$id', '$regno', '$fname $mi $lname', NOW(),'$rotc_grade', '$status')";
+        $inserttoSem = "INSERT INTO first_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status, first_sem_grade) VALUES('$session', '$comp', '$id', '$regno', '$fname $mi $lname', NOW(), '$status', '$rotc_grade')";
 
         if (mysqli_query($con, $inserttoSem)) {
             echo '<script type="text/javascript">';
