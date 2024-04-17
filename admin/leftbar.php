@@ -11,6 +11,9 @@
             <a href="add.php">&nbsp;&nbsp;&nbsp;<i class="bi bi-person-add"></i>&nbsp;&nbsp;ADD CADETS</a>
         </li>
         <li>
+            <a href="input-grades.php">&nbsp;&nbsp;&nbsp;<i class="bi bi-check2"></i>&nbsp;&nbsp;ADD GRADES</a>
+        </li>
+        <li>
             <a href="view.php">&nbsp;&nbsp;&nbsp;<i class="bi bi-view-list"></i>&nbsp;&nbsp;VEW CADETS</a>
         </li>
         <li>

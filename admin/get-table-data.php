@@ -1,5 +1,5 @@
 <?php
-include('../includes/dbconnection.php');
+include ('../includes/dbconnection.php');
 $session = $_POST['session'];
 $company = $_POST['company'];
 
@@ -22,9 +22,11 @@ $result_second = mysqli_query($con, $stmt_second);
     $sql_passed = mysqli_query($con, "SELECT session, COUNT(student_status) AS passed FROM first_sem WHERE student_status='PASSED' AND session = '$session'");
     $row_passed = mysqli_fetch_assoc($sql_passed);
     ?>
-    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row_dropped['session']; ?>" data-sem="first">Dropped : <?php echo $row_dropped['dropped']; ?></a>
+    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row_dropped['session']; ?>"
+        data-sem="first">Dropped : <?php echo $row_dropped['dropped']; ?></a>
     <br>
-    <a style="color:green" href="#" id="passed" data-session="<?php echo $row_passed['session']; ?>" data-sem="first">Passed : <?php echo $row_passed['passed']; ?></a>
+    <a style="color:green" href="#" id="passed" data-session="<?php echo $row_passed['session']; ?>"
+        data-sem="first">Passed : <?php echo $row_passed['passed']; ?></a>
 
     <br>
     <br>
@@ -51,26 +53,30 @@ $result_second = mysqli_query($con, $stmt_second);
                     <td><?= $first['student_status']; ?></td>
                     <td>
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
+                            <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">More</button>
                             <ul class="dropdown-menu">
                                 <?php
                                 if ($first['student_status'] == 'PASSED' || $first['student_status'] == 'DROPPED') { ?>
                                     <li>
-                                        <button disabled class="dropdown-item drop-studentf" data-id="<?= $first['student_id']; ?>" href="#">Drop</button>
+                                        <button disabled class="dropdown-item drop-studentf"
+                                            data-id="<?= $first['student_id']; ?>" href="#">Drop</button>
                                     </li>
                                 <?php } else { ?>
                                     <li>
-                                        <a class="dropdown-item drop-studentf" data-id="<?= $first['student_id']; ?>" href="#">Drop</a>
+                                        <a class="dropdown-item drop-studentf" data-id="<?= $first['student_id']; ?>"
+                                            href="#">Drop</a>
                                     </li>
                                 <?php } ?>
                                 <li>
-                                    <a class="dropdown-item add-grade" data-id="<?= $first['student_id']; ?>" href="#">Input Grade</a>
+                                    <a class="dropdown-item add-grade" data-id="<?= $first['student_id']; ?>" href="#">Input
+                                        Grade</a>
                                 </li>
                             </ul>
                         </div>
                     </td>
                 </tr>
-            <?php include 'modal/add-grade.php';
+                <?php include 'modal/add-grade.php';
             } ?>
         </tbody>
     </table>
@@ -80,17 +86,19 @@ $result_second = mysqli_query($con, $stmt_second);
     <h5 id="title-heading">Second semester</h5>
     <br>
     <?php
-// Fetch dropped students count from second_sem
-$sql_dropped = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM second_sem WHERE student_status='DROPPED' AND session = '$session'");
-$row_dropped = mysqli_fetch_assoc($sql_dropped);
+    // Fetch dropped students count from second_sem
+    $sql_dropped = mysqli_query($con, "SELECT session, COUNT(student_status) AS dropped FROM second_sem WHERE student_status='DROPPED' AND session = '$session'");
+    $row_dropped = mysqli_fetch_assoc($sql_dropped);
 
-// Fetch passed students count from second_sem
-$sql_passed = mysqli_query($con, "SELECT session, COUNT(student_status) AS passed FROM second_sem WHERE student_status='PASSED' AND session = '$session'");
-$row_passed = mysqli_fetch_assoc($sql_passed);
-?>
-<a style="color:red" href="#" id="dropped" data-session="<?php echo $row_dropped['session']; ?>" data-sem="second">Dropped : <?php echo $row_dropped['dropped']; ?></a>
-<br>
-<a style="color:green" href="#" id="passed" data-session="<?php echo $row_passed['session']; ?>" data-sem="second">Passed : <?php echo $row_passed['passed']; ?></a>
+    // Fetch passed students count from second_sem
+    $sql_passed = mysqli_query($con, "SELECT session, COUNT(student_status) AS passed FROM second_sem WHERE student_status='PASSED' AND session = '$session'");
+    $row_passed = mysqli_fetch_assoc($sql_passed);
+    ?>
+    <a style="color:red" href="#" id="dropped" data-session="<?php echo $row_dropped['session']; ?>"
+        data-sem="second">Dropped : <?php echo $row_dropped['dropped']; ?></a>
+    <br>
+    <a style="color:green" href="#" id="passed" data-session="<?php echo $row_passed['session']; ?>"
+        data-sem="second">Passed : <?php echo $row_passed['passed']; ?></a>
 
     <br>
     <br>
@@ -116,23 +124,34 @@ $row_passed = mysqli_fetch_assoc($sql_passed);
                     <td><?= $second['date_completed'] ?></td>
                     <td><?= $second['student_status']; ?></td>
                     <td>
+                        <div style="display: flex; flex-directio: row;">
+                    </div>
+                        <div class="input-group input-group-prefix mb-3">
+                            <input type="text" class="form-control" aria-label="Sizing example input"
+                                aria-describedby="inputGroup-sizing-default">
+                        </div>
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">More</button>
+                            <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">More</button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item drop-student" href="#" data-id="<?= $second['student_id']; ?>">Drop</a></li>
+                                <li><a class="dropdown-item drop-student" href="#"
+                                        data-id="<?= $second['student_id']; ?>">Drop</a></li>
 
                                 <?php
                                 if ($second['student_status'] == 'DROPPED' || $second['student_status'] == 'PASSED') { ?>
                                     <li>
-                                        <button disabled class="dropdown-item passed" data-id="<?= $second['student_id']; ?>" href="#">Passed</button>
+                                        <button disabled class="dropdown-item passed" data-id="<?= $second['student_id']; ?>"
+                                            href="#">Passed</button>
                                     </li>
                                 <?php } else { ?>
                                     <li>
-                                        <a class="dropdown-item passed" data-id="<?= $second['student_id']; ?>" href="#">Passed</a>
+                                        <a class="dropdown-item passed" data-id="<?= $second['student_id']; ?>"
+                                            href="#">Passed</a>
                                     </li>
                                 <?php } ?>
                                 <li>
-                                    <a class="dropdown-item add-second-grade" data-id="<?= $second['student_id']; ?>" href="#">Input Grade</a>
+                                    <a class="dropdown-item add-second-grade" data-id="<?= $second['student_id']; ?>"
+                                        href="#">Input Grade</a>
                                 </li>
                             </ul>
                         </div>
@@ -144,7 +163,7 @@ $row_passed = mysqli_fetch_assoc($sql_passed);
 </div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         new DataTable('#tableNew1st');
         new DataTable('#tableNew2nd');
     });

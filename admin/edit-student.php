@@ -209,6 +209,20 @@ if (strlen($_SESSION['aid'] == 0)) {
 									<input class="form-control" value="<?php echo $row['rotc_grade'] ?>" name="rotc_grade">
 								</div>
 
+								<div class="col-sm-3">
+									<select class="form-select" name="course" required="required">
+										<?php
+										$stmt = "SELECT * FROM course";
+										$result = mysqli_query($con, $stmt);
+										while ($rows = mysqli_fetch_assoc($result)) {
+											$selected = ($rows['c_name'] == $row['course']) ? 'selected' : '';
+										?>
+											<option <?php echo $selected ?>><?php echo $rows['c_name'] ?></option>
+										<?php } ?>
+									</select>
+								</div>
+								</div>
+
 							</div>
 						</div>
 

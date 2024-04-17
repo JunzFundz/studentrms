@@ -172,3 +172,8 @@ if (isset($_POST['add_course'])) {
         }
     }
 }
+
+
+if(isset($_POST['get-data-first'])){
+    
+}
