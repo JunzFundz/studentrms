@@ -420,9 +420,6 @@ $(document).ready(function() {
             data: {
                 'student_id': id,
                 'grade': val
-            },
-            success: function (data) {
-                alert('Success');
             }
         });
     }
@@ -442,9 +439,6 @@ $(document).ready(function() {
             data: {
                 'student_id': nid,
                 'grade': nval
-            },
-            success: function (data) {
-                alert('Success');
             }
         });
     }

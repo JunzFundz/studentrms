@@ -86,7 +86,10 @@ $result_second = mysqli_query($con, $stmt_second);
                 <tr>
                     <td><?= $second['student_reg_number']; ?></td>
                     <td><?= $second['student_name']; ?></td>
-                    <td><input type="text" class="add-second" data-nid="<?= $second['student_id']; ?>" style="border: none;" value="<?= strtoupper($second['second_sem_grade']); ?>"></td>
+                    <td><input type="text" class="add-second" 
+                    data-nid="<?= $second['student_id']; ?>" 
+                    style="border: none;" 
+                    value="<?= strtoupper($second['second_sem_grade']); ?>"></td>
                 </tr>
             <?php } ?>
         </tbody>

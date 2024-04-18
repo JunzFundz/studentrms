@@ -28,7 +28,6 @@ if (strlen($_SESSION['aid'] == 0)) {
 					$("#c-full").val(data);
 				}
 			});
-
 		}
 	</script>
 	</head>
@@ -48,7 +47,9 @@ if (strlen($_SESSION['aid'] == 0)) {
 				</div>
 
 				<div class="right-panel">
-					<?php foreach ($result as $row) { ?>
+
+					<?php
+					foreach ($result as $row) { ?>
 
 						<div class="container text-left" style="padding: 0;">
 							<div class="row g-3">
@@ -101,12 +102,14 @@ if (strlen($_SESSION['aid'] == 0)) {
 								<div class="col-sm-3">
 									<label>Semester<span id="" style="font-size:11px;color:red">*</span> </label>
 									<select class="form-select" name="semester" required="required">
-										<?php $stmt = "SELECT * FROM semester";
+										<?php
+										$stmt = "SELECT * FROM semester";
 										$result = mysqli_query($con, $stmt);
-										foreach ($result as $rows) { ?>
-											<option><?php echo $rows['sem'] ?></option>
-										<?php }
+										while ($rows = mysqli_fetch_assoc($result)) {
+											$selected = ($rows['sem'] == $row['semester']) ? 'selected' : '';
 										?>
+											<option <?php echo $selected ?>><?php echo $rows['sem'] ?></option>
+										<?php } ?>
 									</select>
 								</div>
 							</div>
@@ -205,23 +208,24 @@ if (strlen($_SESSION['aid'] == 0)) {
 								</div>
 
 								<div class="col-sm-3">
+									<?php $stmt =  mysqli_query($con, "SELECT * FROM first_sem WHERE student_id=" . $id);
+									$result = mysqli_fetch_assoc($stmt); ?>
+
 									<label>ROTC Grade (1st Semester)<span id="" style="font-size:11px;color:red">*</span></label>
-									<input class="form-control" value="<?php echo $row['rotc_grade'] ?>" name="rotc_grade">
+									<input class="form-control add-grade" data-id="<?php echo $result['student_id'] ?>" value="<?php echo $result['first_sem_grade'] ?>" name="rotc_sgrade">
 								</div>
 
-								<div class="col-sm-3">
-									<select class="form-select" name="course" required="required">
-										<?php
-										$stmt = "SELECT * FROM course";
-										$result = mysqli_query($con, $stmt);
-										while ($rows = mysqli_fetch_assoc($result)) {
-											$selected = ($rows['c_name'] == $row['course']) ? 'selected' : '';
-										?>
-											<option <?php echo $selected ?>><?php echo $rows['c_name'] ?></option>
-										<?php } ?>
-									</select>
-								</div>
-								</div>
+								<?php
+								$stmt = mysqli_query($con, "SELECT * FROM second_sem WHERE student_id=" . $id);
+								$result = mysqli_fetch_assoc($stmt);
+								?>
+
+								<?php if ($result) : ?>
+									<div class="col-sm-3">
+										<label>ROTC Grade (2nd Semester)<span id="" style="font-size:11px;color:red">*</span></label>
+										<input class="form-control add-second" data-nid="<?php echo $result['student_id'] ?>" value="<?php echo $result['second_sem_grade'] ?>" name="rotc_sgrade">
+									</div>
+								<?php endif; ?>
 
 							</div>
 						</div>
@@ -254,15 +258,16 @@ if (strlen($_SESSION['aid'] == 0)) {
 								</div>
 
 							</div>
-						<?php } ?>
 						</div>
+					<?php } ?>
 
 
-						<div class="col-2">
-							<br>
-							<input type="submit" class="btn btn-primary" name="submit" value="Update"></button>
-						</div>
+					<div class="col-2">
+						<br>
+						<input type="submit" class="btn btn-primary" name="submit" value="Update"></button>
+					</div>
 				</div>
+			</div>
 			</div>
 		</form>
 

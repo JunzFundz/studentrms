@@ -68,10 +68,6 @@ $result_second = mysqli_query($con, $stmt_second);
                                             href="#">Drop</a>
                                     </li>
                                 <?php } ?>
-                                <li>
-                                    <a class="dropdown-item add-grade" data-id="<?= $first['student_id']; ?>" href="#">Input
-                                        Grade</a>
-                                </li>
                             </ul>
                         </div>
                     </td>
@@ -124,12 +120,6 @@ $result_second = mysqli_query($con, $stmt_second);
                     <td><?= $second['date_completed'] ?></td>
                     <td><?= $second['student_status']; ?></td>
                     <td>
-                        <div style="display: flex; flex-directio: row;">
-                    </div>
-                        <div class="input-group input-group-prefix mb-3">
-                            <input type="text" class="form-control" aria-label="Sizing example input"
-                                aria-describedby="inputGroup-sizing-default">
-                        </div>
                         <div class="dropdown">
                             <button class="btn btn-default dropdown-toggle" type="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">More</button>
@@ -149,10 +139,6 @@ $result_second = mysqli_query($con, $stmt_second);
                                             href="#">Passed</a>
                                     </li>
                                 <?php } ?>
-                                <li>
-                                    <a class="dropdown-item add-second-grade" data-id="<?= $second['student_id']; ?>"
-                                        href="#">Input Grade</a>
-                                </li>
                             </ul>
                         </div>
                     </td>

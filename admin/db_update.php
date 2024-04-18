@@ -6,8 +6,8 @@ if (isset($_POST['submit'])) {
     $id         = isset($_POST['id']) ? $_POST['id'] : '';
     $comp       = isset($_POST['comp']) ? $_POST['comp'] : '';
     $sem        = isset($_POST['semester']) ? $_POST['semester'] : '';
-    $course        = isset($_POST['course']) ? $_POST['course'] : '';
-    $major        = isset($_POST['major']) ? $_POST['major'] : '';
+    $course     = isset($_POST['course']) ? $_POST['course'] : '';
+    $major      = isset($_POST['major']) ? $_POST['major'] : '';
     $fname      = isset($_POST['fname']) ? $_POST['fname'] : '';
     $mi         = isset($_POST['mi']) ? $_POST['mi'] : '';
     $lname      = isset($_POST['lname']) ? $_POST['lname'] : '';
@@ -24,7 +24,6 @@ if (isset($_POST['submit'])) {
     $f_occupation = isset($_POST['f_occupation']) ? $_POST['f_occupation'] : '';
     $mother     = isset($_POST['mother']) ? $_POST['mother'] : '';
     $m_occupation = isset($_POST['m_occupation']) ? $_POST['m_occupation'] : '';
-    $rotc_grade = isset($_POST['rotc_grade']) ? $_POST['rotc_grade'] : '';
     $person_name = isset($_POST['person_name']) ? $_POST['person_name'] : '';
     $person_relationship = isset($_POST['person_relationship']) ? $_POST['person_relationship'] : '';
     $person_add = isset($_POST['person_add']) ? $_POST['person_add'] : '';
@@ -50,8 +49,7 @@ if (isset($_POST['submit'])) {
     father = '$father', 
     f_occupation = '$f_occupation', 
     mother = '$mother', 
-    m_occupation = '$m_occupation', 
-    rotc_grade = '$rotc_grade', 
+    m_occupation = '$m_occupation',
     person_name = '$person_name', 
     person_relationship = '$person_relationship', 
     person_add = '$person_add', 
@@ -60,7 +58,10 @@ if (isset($_POST['submit'])) {
 
     if (mysqli_query($con, $stmt)) {
 
+        $full_name = $fname . " " . $mi . ". " . $lname;
+
         if ($sem === '2nd') {
+
             $check = "SELECT * FROM second_sem WHERE student_id='$id'";
             $result = mysqli_query($con, $check);
             if (mysqli_num_rows($result) > 0) {
@@ -76,31 +77,31 @@ if (isset($_POST['submit'])) {
                     $regno = $row['reg_no'];
                     $session = $row['session'];
                     $company = $row['comp'];
-                    $full_name = $row['fname'] . " " . $row['mi'] . ". " . $row['lname'];
-                    $insertSecondSem = "INSERT INTO second_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status) VALUES ('$session', '$company', '$id', '$regno', '$full_name', NOW(), 'ONGOING')";
+                    $full_nname = $row['fname'] . " " . $row['mi'] . ". " . $row['lname'];
+
+                    $insertSecondSem = "INSERT INTO second_sem (session, company, student_id, student_reg_number, student_name, date_enrolled, student_status) VALUES ('$session', '$company', '$id', '$regno', '$full_nname', NOW(), 'ONGOING')";
                     $newresult = mysqli_query($con, $insertSecondSem);
                     $successMessage = "Successfully enrolled in 2nd semester";
                 }
             }
-        } else {
-            $stmt = "UPDATE first_sem SET student_name = '$fname $mi $lname', company = '$comp' WHERE student_id = '$id'";
+        }
+        $stmt = "UPDATE first_sem SET student_name = ' $fname $mi $lname', company = '$comp' WHERE student_id = '$id'";
 
-            if (mysqli_query($con, $stmt)) {
-                $check = "SELECT * FROM second_sem WHERE id='$id'";
-                $result = mysqli_query($con, $check);
+        if (mysqli_query($con, $stmt)) {
+            $check = "SELECT * FROM second_sem WHERE student_id='$id'";
+            $result = mysqli_query($con, $check);
 
-                if ($result && mysqli_num_rows($result) > 0) {
-                    $stmt = "UPDATE second_sem SET student_name = '$fname $mi $lname', company = '$comp' WHERE id = '$id'";
-                    if (mysqli_query($con, $stmt)) {
-                        $successMessage = "Successfully updated";
-                    }
-                } else {
-                    $errorMessage = "Error updating second sem records: " . mysqli_error($con);
+            if ($result && mysqli_num_rows($result) > 0) {
+                $stmt = "UPDATE second_sem SET student_name = '$fname $mi $lname', company = '$comp' WHERE student_id = '$id'";
+                if (mysqli_query($con, $stmt)) {
+                    $successMessage = "Successfully updated";
                 }
-                $successMessage = "Successfully updated";
             } else {
-                $errorMessage = "Error updating first sem records: " . mysqli_error($con);
+                $errorMessage = "Error updating second sem records: " . mysqli_error($con);
             }
+            $successMessage = "Successfully updated";
+        } else {
+            $errorMessage = "Error updating first sem records: " . mysqli_error($con);
         }
     } else {
         $errorMessage = "Error updating records: " . mysqli_error($con);
@@ -118,6 +119,3 @@ if (isset($_POST['submit'])) {
         echo '</script>';
     }
 }
-
-
-
